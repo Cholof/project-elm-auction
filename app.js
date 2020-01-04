@@ -5849,6 +5849,8 @@ var $author$project$Main$Auctions = {$: 'Auctions'};
 var $author$project$Main$ExpiredAuctions = {$: 'ExpiredAuctions'};
 var $author$project$Main$Profile = {$: 'Profile'};
 var $author$project$Main$Sell = {$: 'Sell'};
+var $author$project$Main$Signin = {$: 'Signin'};
+var $author$project$Main$Signout = {$: 'Signout'};
 var $elm$url$Url$Parser$Parser = function (a) {
 	return {$: 'Parser', a: a};
 };
@@ -5966,7 +5968,15 @@ var $author$project$Main$routeParser = $elm$url$Url$Parser$oneOf(
 			A2(
 			$elm$url$Url$Parser$map,
 			$author$project$Main$Profile,
-			$elm$url$Url$Parser$s('profile'))
+			$elm$url$Url$Parser$s('profile')),
+			A2(
+			$elm$url$Url$Parser$map,
+			$author$project$Main$Signin,
+			$elm$url$Url$Parser$s('signin')),
+			A2(
+			$elm$url$Url$Parser$map,
+			$author$project$Main$Signout,
+			$elm$url$Url$Parser$s('signout'))
 		]));
 var $elm$core$Maybe$withDefault = F2(
 	function (_default, maybe) {
@@ -8748,6 +8758,44 @@ var $author$project$Main$pageSell = function (modelSell) {
 				]))
 		]);
 };
+var $author$project$Main$pageSigin = function (modelSignin) {
+	return _List_fromArray(
+		[
+			A2(
+			$elm$html$Html$h1,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('Signin')
+				])),
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('Todo: Signin')
+				]))
+		]);
+};
+var $author$project$Main$pageSignout = function (modelSignout) {
+	return _List_fromArray(
+		[
+			A2(
+			$elm$html$Html$h1,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('signout')
+				])),
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('Todo: Signout')
+				]))
+		]);
+};
 var $author$project$Main$mainContent = function (model) {
 	return A2(
 		$rundis$elm_bootstrap$Bootstrap$Grid$container,
@@ -8759,14 +8807,18 @@ var $author$project$Main$mainContent = function (model) {
 					return $author$project$Main$pageHome(model);
 				case 'Auctions':
 					return $author$project$Main$pageAuctions(model);
-				case 'About':
-					return $author$project$Main$pageAbout(model);
-				case 'Profile':
-					return $author$project$Main$pageProfile(model);
 				case 'Sell':
 					return $author$project$Main$pageSell(model);
 				case 'ExpiredAuctions':
 					return $author$project$Main$pageExpired(model);
+				case 'About':
+					return $author$project$Main$pageAbout(model);
+				case 'Profile':
+					return $author$project$Main$pageProfile(model);
+				case 'Signin':
+					return $author$project$Main$pageSigin(model);
+				case 'Signout':
+					return $author$project$Main$pageSignout(model);
 				default:
 					return $author$project$Main$pageNotFound;
 			}
@@ -8820,6 +8872,29 @@ var $rundis$elm_bootstrap$Bootstrap$Navbar$brand = F3(
 			},
 			config_);
 	});
+var $rundis$elm_bootstrap$Bootstrap$General$Internal$MD = {$: 'MD'};
+var $rundis$elm_bootstrap$Bootstrap$Navbar$updateOptions = F2(
+	function (mapper, _v0) {
+		var conf = _v0.a;
+		return $rundis$elm_bootstrap$Bootstrap$Navbar$Config(
+			_Utils_update(
+				conf,
+				{
+					options: mapper(conf.options)
+				}));
+	});
+var $rundis$elm_bootstrap$Bootstrap$Navbar$toggleAt = F2(
+	function (size, conf) {
+		return A2(
+			$rundis$elm_bootstrap$Bootstrap$Navbar$updateOptions,
+			function (opt) {
+				return _Utils_update(
+					opt,
+					{toggleAt: size});
+			},
+			conf);
+	});
+var $rundis$elm_bootstrap$Bootstrap$Navbar$collapseMedium = $rundis$elm_bootstrap$Bootstrap$Navbar$toggleAt($rundis$elm_bootstrap$Bootstrap$General$Internal$MD);
 var $rundis$elm_bootstrap$Bootstrap$Internal$Role$Light = {$: 'Light'};
 var $rundis$elm_bootstrap$Bootstrap$Navbar$Light = {$: 'Light'};
 var $rundis$elm_bootstrap$Bootstrap$Navbar$Roled = function (a) {
@@ -8845,26 +8920,6 @@ var $rundis$elm_bootstrap$Bootstrap$Navbar$config = function (toMsg) {
 			toMsg: toMsg,
 			withAnimation: false
 		});
-};
-var $rundis$elm_bootstrap$Bootstrap$Navbar$updateOptions = F2(
-	function (mapper, _v0) {
-		var conf = _v0.a;
-		return $rundis$elm_bootstrap$Bootstrap$Navbar$Config(
-			_Utils_update(
-				conf,
-				{
-					options: mapper(conf.options)
-				}));
-	});
-var $rundis$elm_bootstrap$Bootstrap$Navbar$container = function (conf) {
-	return A2(
-		$rundis$elm_bootstrap$Bootstrap$Navbar$updateOptions,
-		function (opts) {
-			return _Utils_update(
-				opts,
-				{isContainer: true});
-		},
-		conf);
 };
 var $rundis$elm_bootstrap$Bootstrap$Navbar$customItems = F2(
 	function (items_, config_) {
@@ -9048,7 +9103,6 @@ var $rundis$elm_bootstrap$Bootstrap$Navbar$sizeToComparable = function (size) {
 	}
 };
 var $rundis$elm_bootstrap$Bootstrap$General$Internal$LG = {$: 'LG'};
-var $rundis$elm_bootstrap$Bootstrap$General$Internal$MD = {$: 'MD'};
 var $rundis$elm_bootstrap$Bootstrap$General$Internal$SM = {$: 'SM'};
 var $rundis$elm_bootstrap$Bootstrap$General$Internal$XL = {$: 'XL'};
 var $rundis$elm_bootstrap$Bootstrap$Navbar$toScreenSize = function (windowWidth) {
@@ -9741,151 +9795,199 @@ var $rundis$elm_bootstrap$Bootstrap$Navbar$withAnimation = function (config_) {
 };
 var $author$project$Main$menu = function (model) {
 	return A2(
-		$rundis$elm_bootstrap$Bootstrap$Navbar$view,
-		model.navState,
-		A2(
-			$rundis$elm_bootstrap$Bootstrap$Navbar$customItems,
-			_List_fromArray(
-				[
-					A2(
-					$rundis$elm_bootstrap$Bootstrap$Navbar$formItem,
-					_List_Nil,
+		$rundis$elm_bootstrap$Bootstrap$Grid$container,
+		_List_Nil,
+		_List_fromArray(
+			[
+				A2(
+				$rundis$elm_bootstrap$Bootstrap$Navbar$view,
+				model.navState,
+				A2(
+					$rundis$elm_bootstrap$Bootstrap$Navbar$customItems,
 					_List_fromArray(
 						[
-							$rundis$elm_bootstrap$Bootstrap$Form$Input$text(
+							A2(
+							$rundis$elm_bootstrap$Bootstrap$Navbar$formItem,
+							_List_Nil,
 							_List_fromArray(
 								[
-									$rundis$elm_bootstrap$Bootstrap$Form$Input$attrs(
+									$rundis$elm_bootstrap$Bootstrap$Form$Input$text(
 									_List_fromArray(
 										[
-											$elm$html$Html$Attributes$placeholder('enter')
+											$rundis$elm_bootstrap$Bootstrap$Form$Input$attrs(
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$placeholder('enter')
+												]))
+										])),
+									A2(
+									$rundis$elm_bootstrap$Bootstrap$Button$button,
+									_List_fromArray(
+										[
+											$rundis$elm_bootstrap$Bootstrap$Button$success,
+											$rundis$elm_bootstrap$Bootstrap$Button$attrs(
+											_List_fromArray(
+												[$rundis$elm_bootstrap$Bootstrap$Utilities$Spacing$ml2Sm]))
+										]),
+									_List_fromArray(
+										[
+											$elm$html$Html$text('Search')
 										]))
 								])),
 							A2(
-							$rundis$elm_bootstrap$Bootstrap$Button$button,
+							$rundis$elm_bootstrap$Bootstrap$Navbar$textItem,
 							_List_fromArray(
 								[
-									$rundis$elm_bootstrap$Bootstrap$Button$success,
-									$rundis$elm_bootstrap$Bootstrap$Button$attrs(
-									_List_fromArray(
-										[$rundis$elm_bootstrap$Bootstrap$Utilities$Spacing$ml2Sm]))
+									$rundis$elm_bootstrap$Bootstrap$Utilities$Spacing$ml2Sm,
+									$elm$html$Html$Attributes$class('muted')
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text('Search')
+									$elm$html$Html$text('What are you looking for?')
 								]))
-						])),
-					A2(
-					$rundis$elm_bootstrap$Bootstrap$Navbar$textItem,
-					_List_fromArray(
-						[
-							$rundis$elm_bootstrap$Bootstrap$Utilities$Spacing$ml2Sm,
-							$elm$html$Html$Attributes$class('muted')
 						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('What are you looking for?')
-						]))
-				]),
-			A2(
-				$rundis$elm_bootstrap$Bootstrap$Navbar$items,
-				_List_fromArray(
-					[
-						$rundis$elm_bootstrap$Bootstrap$Navbar$dropdown(
-						{
-							id: 'mydropdown',
-							items: _List_fromArray(
-								[
-									$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownHeader(
-									_List_fromArray(
+					A2(
+						$rundis$elm_bootstrap$Bootstrap$Navbar$items,
+						_List_fromArray(
+							[
+								$rundis$elm_bootstrap$Bootstrap$Navbar$dropdown(
+								{
+									id: 'mydropdown',
+									items: _List_fromArray(
 										[
-											$elm$html$Html$text('Select')
-										])),
-									A2(
-									$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$href('#currentauctions')
+											$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownHeader(
+											_List_fromArray(
+												[
+													$elm$html$Html$text('Select')
+												])),
+											A2(
+											$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$href('#currentauctions')
+												]),
+											_List_fromArray(
+												[
+													$elm$html$Html$text('Current Auctions')
+												])),
+											A2(
+											$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$href('#sell')
+												]),
+											_List_fromArray(
+												[
+													$elm$html$Html$text('Sell item')
+												])),
+											$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownDivider,
+											A2(
+											$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$href('#expiredauctions')
+												]),
+											_List_fromArray(
+												[
+													$elm$html$Html$text('Expired Items')
+												]))
 										]),
-									_List_fromArray(
+									toggle: A2(
+										$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownToggle,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$href('#')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Auctions')
+											]))
+								}),
+								$rundis$elm_bootstrap$Bootstrap$Navbar$dropdown(
+								{
+									id: 'profiledropdown',
+									items: _List_fromArray(
 										[
-											$elm$html$Html$text('Current Auctions')
-										])),
-									A2(
-									$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$href('#sell')
+											$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownHeader(
+											_List_fromArray(
+												[
+													$elm$html$Html$text('Select')
+												])),
+											A2(
+											$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$href('#profile')
+												]),
+											_List_fromArray(
+												[
+													$elm$html$Html$text('myprofile')
+												])),
+											A2(
+											$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$href('#signin')
+												]),
+											_List_fromArray(
+												[
+													$elm$html$Html$text('signin')
+												])),
+											$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownDivider,
+											A2(
+											$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
+											_List_fromArray(
+												[
+													$elm$html$Html$Attributes$href('#signout')
+												]),
+											_List_fromArray(
+												[
+													$elm$html$Html$text('signout')
+												]))
 										]),
-									_List_fromArray(
-										[
-											$elm$html$Html$text('Sell item')
-										])),
-									$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownDivider,
-									A2(
-									$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$href('#expiredauctions')
-										]),
-									_List_fromArray(
-										[
-											$elm$html$Html$text('Expired Items')
-										]))
-								]),
-							toggle: A2(
-								$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownToggle,
-								_List_Nil,
+									toggle: A2(
+										$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownToggle,
+										_List_Nil,
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Profile')
+											]))
+								}),
+								A2(
+								$rundis$elm_bootstrap$Bootstrap$Navbar$itemLink,
 								_List_fromArray(
 									[
-										$elm$html$Html$text('Auctions')
+										$elm$html$Html$Attributes$href('#about')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text('About')
 									]))
-						}),
-						A2(
-						$rundis$elm_bootstrap$Bootstrap$Navbar$itemLink,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('#profile')
 							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Profile')
-							])),
-						A2(
-						$rundis$elm_bootstrap$Bootstrap$Navbar$itemLink,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('#about')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('About')
-							]))
-					]),
-				A3(
-					$rundis$elm_bootstrap$Bootstrap$Navbar$brand,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$href('#')
-						]),
-					_List_fromArray(
-						[
-							A2(
-							$elm$html$Html$img,
+						A3(
+							$rundis$elm_bootstrap$Bootstrap$Navbar$brand,
 							_List_fromArray(
 								[
-									$elm$html$Html$Attributes$src('resources/w.xcf'),
-									$elm$html$Html$Attributes$class('d-inline-block align-top'),
-									A2($elm$html$Html$Attributes$style, 'height', '40px'),
-									A2($elm$html$Html$Attributes$style, 'width', '40px')
+									$elm$html$Html$Attributes$href('#')
 								]),
-							_List_Nil),
-							$elm$html$Html$text('Home')
-						]),
-					$rundis$elm_bootstrap$Bootstrap$Navbar$info(
-						$rundis$elm_bootstrap$Bootstrap$Navbar$container(
-							$rundis$elm_bootstrap$Bootstrap$Navbar$withAnimation(
-								$rundis$elm_bootstrap$Bootstrap$Navbar$config($author$project$Main$NavMsg))))))));
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$img,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$src('assets/museum.svg'),
+											$elm$html$Html$Attributes$class('align-top'),
+											A2($elm$html$Html$Attributes$style, 'width', '30px')
+										]),
+									_List_Nil),
+									$elm$html$Html$text('Home')
+								]),
+							$rundis$elm_bootstrap$Bootstrap$Navbar$info(
+								$rundis$elm_bootstrap$Bootstrap$Navbar$collapseMedium(
+									$rundis$elm_bootstrap$Bootstrap$Navbar$withAnimation(
+										$rundis$elm_bootstrap$Bootstrap$Navbar$config($author$project$Main$NavMsg))))))))
+			]));
 };
 var $author$project$Main$view = function (model) {
 	return {

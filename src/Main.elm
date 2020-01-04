@@ -55,6 +55,9 @@ type Page
     | About
     | Profile
     | NotFound
+    | Signin
+    | Signout
+    
 
 
 
@@ -126,6 +129,8 @@ routeParser =
         , UrlParser.map ExpiredAuctions (UrlParser.s "expiredauctions")
         , UrlParser.map About (UrlParser.s "about")
         , UrlParser.map Profile (UrlParser.s "profile")
+        , UrlParser.map Signin (UrlParser.s "signin")
+        , UrlParser.map Signout (UrlParser.s "signout")
         ]
 
 -- View
@@ -143,16 +148,16 @@ view model =
 -- Navigation Bar // Links
 menu : Model -> Html Msg
 menu model =
-    Navbar.config NavMsg
+ Grid.container []
+    [Navbar.config NavMsg
         |> Navbar.withAnimation 
-        |> Navbar.container 
+        |> Navbar.collapseMedium  
         |> Navbar.info
         |> Navbar.brand [ href "#" ]
             [ img
-                [ src "resources/w.xcf"
-                , class "d-inline-block align-top"
-                , style "height" "40px"
-                , style "width" "40px"
+                [ src "assets/museum.svg"
+                , class "align-top"
+                , style "width" "30px"
                 ]
                 []
             , text "Home"
@@ -161,7 +166,7 @@ menu model =
             [ 
             Navbar.dropdown 
                 { id = "mydropdown"
-                , toggle = Navbar.dropdownToggle [] [ text "Auctions" ]
+                , toggle = Navbar.dropdownToggle [href "#"] [ text "Auctions" ]
                 , items =
                     [ Navbar.dropdownHeader [ text "Select" ]
                     , Navbar.dropdownItem
@@ -176,7 +181,25 @@ menu model =
                         [ text "Expired Items" ]
                     ]
                 }
-            ,Navbar.itemLink [ href "#profile" ] [ text "Profile" ]
+            ,  
+            Navbar.dropdown 
+                { id = "profiledropdown"
+                , toggle = Navbar.dropdownToggle [] [ text "Profile" ]
+                , items =
+                    [ Navbar.dropdownHeader [ text "Select" ]
+                    , Navbar.dropdownItem
+                        [ href "#profile" ]
+                        [ text "myprofile" ]
+                    , Navbar.dropdownItem
+                        [ href "#signin" ]
+                        [ text "signin" ]
+                    , Navbar.dropdownDivider
+                    , Navbar.dropdownItem
+                        [ href "#signout" ]
+                        [ text "signout" ]
+                    ]
+                }
+            
             ,Navbar.itemLink [ href "#about" ] [ text "About" ]
             ]
         |> Navbar.customItems
@@ -191,7 +214,7 @@ menu model =
             , Navbar.textItem [ Spacing.ml2Sm, class "muted" ] [ text "What are you looking for?"]
             ]
         |> Navbar.view model.navState
-
+    ]
 mainContent : Model -> Html Msg
 mainContent model =
     Grid.container [] <|
@@ -202,17 +225,23 @@ mainContent model =
             Auctions ->
                 pageAuctions model
 
+            Sell ->
+                pageSell model
+            
+            ExpiredAuctions ->
+                pageExpired model
+
             About ->
                 pageAbout model
 
             Profile ->
                 pageProfile model
 
-            Sell ->
-                pageSell model
-            
-            ExpiredAuctions ->
-                pageExpired model
+            Signin  ->
+                pageSigin model
+
+            Signout  ->
+                pageSignout model
 
             NotFound ->
                 pageNotFound
@@ -281,6 +310,17 @@ pageProfile modelProfile =
      ,p[] [ text "Todo: Render Type - User" ]
      ]
 
+pageSigin : Model -> List (Html Msg)
+pageSigin modelSignin = 
+     [ h1 [] [ text "Signin" ]
+     ,p[] [ text "Todo: Signin" ]
+     ]
+
+pageSignout : Model -> List (Html Msg)
+pageSignout modelSignout = 
+     [ h1 [] [ text "signout" ]
+     ,p[] [ text "Todo: Signout" ]
+     ]
 
 -- About Page
 pageAbout : Model -> List (Html Msg)
@@ -292,6 +332,8 @@ pageAbout modelAbout =
         , Listgroup.li [Listgroup.warning] [ text "Todo: write about us?" ]
         ]
     ]
+
+
 
 -- Just not found
 pageNotFound : List (Html Msg)
