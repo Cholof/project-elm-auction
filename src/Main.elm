@@ -49,6 +49,8 @@ type alias User =
 
 type Page
     = Home
+    | Sell
+    | ExpiredAuctions
     | Auctions
     | About
     | Profile
@@ -119,7 +121,9 @@ routeParser : Parser (Page -> a) a
 routeParser =
     UrlParser.oneOf
         [ UrlParser.map Home top
-        , UrlParser.map Auctions (UrlParser.s "auctions")
+        , UrlParser.map Auctions (UrlParser.s "currentauctions")
+        , UrlParser.map Sell (UrlParser.s "sell")
+        , UrlParser.map ExpiredAuctions (UrlParser.s "expiredauctions")
         , UrlParser.map About (UrlParser.s "about")
         , UrlParser.map Profile (UrlParser.s "profile")
         ]
@@ -130,7 +134,7 @@ view model =
     { title = "Antique Auction"
     , body =
         [ div []
-            [ menu model
+            [ menu model 
             , mainContent model
             ]
         ]
@@ -140,7 +144,7 @@ view model =
 menu : Model -> Html Msg
 menu model =
     Navbar.config NavMsg
-        |> Navbar.withAnimation
+        |> Navbar.withAnimation 
         |> Navbar.container 
         |> Navbar.info
         |> Navbar.brand [ href "#" ]
@@ -154,21 +158,21 @@ menu model =
             , text "Home"
             ]
         |> Navbar.items
-            [
+            [ 
             Navbar.dropdown 
-                { id = "mydropdown" 
+                { id = "mydropdown"
                 , toggle = Navbar.dropdownToggle [] [ text "Auctions" ]
                 , items =
                     [ Navbar.dropdownHeader [ text "Select" ]
                     , Navbar.dropdownItem
-                        [ href "#" ]
+                        [ href "#currentauctions" ]
                         [ text "Current Auctions" ]
                     , Navbar.dropdownItem
-                        [ href "#" ]
+                        [ href "#sell" ]
                         [ text "Sell item" ]
                     , Navbar.dropdownDivider
                     , Navbar.dropdownItem
-                        [ href "#" ]
+                        [ href "#expiredauctions" ]
                         [ text "Expired Items" ]
                     ]
                 }
@@ -193,7 +197,7 @@ mainContent model =
     Grid.container [] <|
         case model.page of
             Home ->
-                pageHome model
+                pageHome model 
 
             Auctions ->
                 pageAuctions model
@@ -203,6 +207,12 @@ mainContent model =
 
             Profile ->
                 pageProfile model
+
+            Sell ->
+                pageSell model
+            
+            ExpiredAuctions ->
+                pageExpired model
 
             NotFound ->
                 pageNotFound
@@ -238,7 +248,32 @@ pageAuctions modelAuctions =
         [ text "Bid Item" ]
     ]
 
-        
+
+pageSell : Model -> List (Html Msg)
+pageSell modelSell =
+    [ h1 [] [ text "Add Item / Sell" ]
+    , Grid.row []
+        [ Grid.col []
+            [ Card.config [ Card.outlineDanger ]
+                |> Card.headerH4 [class "text-center" ] [ text "Sell" ]
+                |> Card.block []
+                    [ Block.text [] [ text "Todo: Add Item" ]
+                    
+                    ]
+                |> Card.view
+            ]
+        ]
+    ]
+
+pageExpired : Model -> List (Html Msg)
+pageExpired modelExpired =
+    [ h1 [] [ text "Expired" ]
+    , Listgroup.ul
+        [ Listgroup.li [Listgroup.info] [ text "Chi" ]
+        , Listgroup.li [Listgroup.info] [ text "Olof" ]
+        , Listgroup.li [Listgroup.info] [ text "Todo: write about us?" ]
+        ]
+    ]
 -- User Page
 pageProfile : Model -> List (Html Msg)
 pageProfile modelProfile = 
@@ -262,7 +297,7 @@ pageAbout modelAbout =
 pageNotFound : List (Html Msg)
 pageNotFound =
     [ h1 [] [ text "Not found" ]
-    , text "SOrry couldn't find that page"
+    , text "Sorry couldn't find that page"
     ]
 
     

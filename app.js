@@ -5846,7 +5846,9 @@ var $elm$url$Url$Parser$parse = F2(
 	});
 var $author$project$Main$About = {$: 'About'};
 var $author$project$Main$Auctions = {$: 'Auctions'};
+var $author$project$Main$ExpiredAuctions = {$: 'ExpiredAuctions'};
 var $author$project$Main$Profile = {$: 'Profile'};
+var $author$project$Main$Sell = {$: 'Sell'};
 var $elm$url$Url$Parser$Parser = function (a) {
 	return {$: 'Parser', a: a};
 };
@@ -5948,7 +5950,15 @@ var $author$project$Main$routeParser = $elm$url$Url$Parser$oneOf(
 			A2(
 			$elm$url$Url$Parser$map,
 			$author$project$Main$Auctions,
-			$elm$url$Url$Parser$s('auctions')),
+			$elm$url$Url$Parser$s('currentauctions')),
+			A2(
+			$elm$url$Url$Parser$map,
+			$author$project$Main$Sell,
+			$elm$url$Url$Parser$s('sell')),
+			A2(
+			$elm$url$Url$Parser$map,
+			$author$project$Main$ExpiredAuctions,
+			$elm$url$Url$Parser$s('expiredauctions')),
 			A2(
 			$elm$url$Url$Parser$map,
 			$author$project$Main$About,
@@ -7434,6 +7444,48 @@ var $author$project$Main$pageAuctions = function (modelAuctions) {
 				]))
 		]);
 };
+var $rundis$elm_bootstrap$Bootstrap$Internal$Role$Info = {$: 'Info'};
+var $rundis$elm_bootstrap$Bootstrap$ListGroup$info = $rundis$elm_bootstrap$Bootstrap$Internal$ListGroup$Roled($rundis$elm_bootstrap$Bootstrap$Internal$Role$Info);
+var $author$project$Main$pageExpired = function (modelExpired) {
+	return _List_fromArray(
+		[
+			A2(
+			$elm$html$Html$h1,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('Expired')
+				])),
+			$rundis$elm_bootstrap$Bootstrap$ListGroup$ul(
+			_List_fromArray(
+				[
+					A2(
+					$rundis$elm_bootstrap$Bootstrap$ListGroup$li,
+					_List_fromArray(
+						[$rundis$elm_bootstrap$Bootstrap$ListGroup$info]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Chi')
+						])),
+					A2(
+					$rundis$elm_bootstrap$Bootstrap$ListGroup$li,
+					_List_fromArray(
+						[$rundis$elm_bootstrap$Bootstrap$ListGroup$info]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Olof')
+						])),
+					A2(
+					$rundis$elm_bootstrap$Bootstrap$ListGroup$li,
+					_List_fromArray(
+						[$rundis$elm_bootstrap$Bootstrap$ListGroup$info]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Todo: write about us?')
+						]))
+				]))
+		]);
+};
 var $rundis$elm_bootstrap$Bootstrap$Card$Config = function (a) {
 	return {$: 'Config', a: a};
 };
@@ -8624,7 +8676,7 @@ var $author$project$Main$pageNotFound = _List_fromArray(
 			[
 				$elm$html$Html$text('Not found')
 			])),
-		$elm$html$Html$text('SOrry couldn\'t find that page')
+		$elm$html$Html$text('Sorry couldn\'t find that page')
 	]);
 var $author$project$Main$pageProfile = function (modelProfile) {
 	return _List_fromArray(
@@ -8645,6 +8697,57 @@ var $author$project$Main$pageProfile = function (modelProfile) {
 				]))
 		]);
 };
+var $author$project$Main$pageSell = function (modelSell) {
+	return _List_fromArray(
+		[
+			A2(
+			$elm$html$Html$h1,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('Add Item / Sell')
+				])),
+			A2(
+			$rundis$elm_bootstrap$Bootstrap$Grid$row,
+			_List_Nil,
+			_List_fromArray(
+				[
+					A2(
+					$rundis$elm_bootstrap$Bootstrap$Grid$col,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$rundis$elm_bootstrap$Bootstrap$Card$view(
+							A3(
+								$rundis$elm_bootstrap$Bootstrap$Card$block,
+								_List_Nil,
+								_List_fromArray(
+									[
+										A2(
+										$rundis$elm_bootstrap$Bootstrap$Card$Block$text,
+										_List_Nil,
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Todo: Add Item')
+											]))
+									]),
+								A3(
+									$rundis$elm_bootstrap$Bootstrap$Card$headerH4,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$class('text-center')
+										]),
+									_List_fromArray(
+										[
+											$elm$html$Html$text('Sell')
+										]),
+									$rundis$elm_bootstrap$Bootstrap$Card$config(
+										_List_fromArray(
+											[$rundis$elm_bootstrap$Bootstrap$Card$outlineDanger])))))
+						]))
+				]))
+		]);
+};
 var $author$project$Main$mainContent = function (model) {
 	return A2(
 		$rundis$elm_bootstrap$Bootstrap$Grid$container,
@@ -8660,6 +8763,10 @@ var $author$project$Main$mainContent = function (model) {
 					return $author$project$Main$pageAbout(model);
 				case 'Profile':
 					return $author$project$Main$pageProfile(model);
+				case 'Sell':
+					return $author$project$Main$pageSell(model);
+				case 'ExpiredAuctions':
+					return $author$project$Main$pageExpired(model);
 				default:
 					return $author$project$Main$pageNotFound;
 			}
@@ -8846,7 +8953,6 @@ var $elm$html$Html$Attributes$href = function (url) {
 };
 var $elm$html$Html$img = _VirtualDom_node('img');
 var $rundis$elm_bootstrap$Bootstrap$Navbar$Dark = {$: 'Dark'};
-var $rundis$elm_bootstrap$Bootstrap$Internal$Role$Info = {$: 'Info'};
 var $rundis$elm_bootstrap$Bootstrap$Navbar$scheme = F3(
 	function (modifier, bgColor, conf) {
 		return A2(
@@ -9699,7 +9805,7 @@ var $author$project$Main$menu = function (model) {
 									$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
 									_List_fromArray(
 										[
-											$elm$html$Html$Attributes$href('#')
+											$elm$html$Html$Attributes$href('#currentauctions')
 										]),
 									_List_fromArray(
 										[
@@ -9709,7 +9815,7 @@ var $author$project$Main$menu = function (model) {
 									$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
 									_List_fromArray(
 										[
-											$elm$html$Html$Attributes$href('#')
+											$elm$html$Html$Attributes$href('#sell')
 										]),
 									_List_fromArray(
 										[
@@ -9720,7 +9826,7 @@ var $author$project$Main$menu = function (model) {
 									$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
 									_List_fromArray(
 										[
-											$elm$html$Html$Attributes$href('#')
+											$elm$html$Html$Attributes$href('#expiredauctions')
 										]),
 									_List_fromArray(
 										[
