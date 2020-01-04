@@ -13,6 +13,7 @@ import Bootstrap.Grid as Grid
 import Bootstrap.Grid.Col as Col
 import Bootstrap.Card as Card
 import Bootstrap.Card.Block as Block
+import Bootstrap.Utilities.Spacing as Spacing
 import Bootstrap.Button as Button
 import Bootstrap.Form.InputGroup as InputGroup
 import Bootstrap.Form.Input as Input
@@ -141,11 +142,49 @@ menu model =
     Navbar.config NavMsg
         |> Navbar.withAnimation
         |> Navbar.container 
-        |> Navbar.brand [ href "#" ] [ text "Antinque Auction" ]
+        |> Navbar.info
+        |> Navbar.brand [ href "#" ]
+            [ img
+                [ src "resources/w.xcf"
+                , class "d-inline-block align-top"
+                , style "height" "40px"
+                , style "width" "40px"
+                ]
+                []
+            , text "Home"
+            ]
         |> Navbar.items
-            [ Navbar.itemLink [ href "#auctions" ] [ text "Auctions" ]
-            , Navbar.itemLink [ href "#about" ] [ text "About" ]
-            , Navbar.itemLink [ href "#profile" ] [ text "Profile" ]
+            [
+            Navbar.dropdown 
+                { id = "mydropdown" 
+                , toggle = Navbar.dropdownToggle [] [ text "Auctions" ]
+                , items =
+                    [ Navbar.dropdownHeader [ text "Select" ]
+                    , Navbar.dropdownItem
+                        [ href "#" ]
+                        [ text "Current Auctions" ]
+                    , Navbar.dropdownItem
+                        [ href "#" ]
+                        [ text "Sell item" ]
+                    , Navbar.dropdownDivider
+                    , Navbar.dropdownItem
+                        [ href "#" ]
+                        [ text "Expired Items" ]
+                    ]
+                }
+            ,Navbar.itemLink [ href "#profile" ] [ text "Profile" ]
+            ,Navbar.itemLink [ href "#about" ] [ text "About" ]
+            ]
+        |> Navbar.customItems
+            [ Navbar.formItem []
+                [ Input.text [ Input.attrs [placeholder "enter" ]]
+                , Button.button
+                    [ Button.success
+                    , Button.attrs [ Spacing.ml2Sm]
+                    ]
+                    [ text "Search"]
+                ]
+            , Navbar.textItem [ Spacing.ml2Sm, class "muted" ] [ text "What are you looking for?"]
             ]
         |> Navbar.view model.navState
 
@@ -178,7 +217,7 @@ pageHome modelHome =
                 |> Card.headerH4 [class "text-center" ] [ text "Home" ]
                 |> Card.block []
                     [ Block.text [] [ text "Todo: Image responsive" ]
-            
+                    
                     ]
                 |> Card.view
             ]
@@ -204,7 +243,7 @@ pageAuctions modelAuctions =
 pageProfile : Model -> List (Html Msg)
 pageProfile modelProfile = 
      [ h1 [] [ text "Profile" ]
-     , Button.button [] [ text "Login" ]
+     ,p[] [ text "Todo: Render Type - User" ]
      ]
 
 
