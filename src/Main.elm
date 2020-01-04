@@ -49,7 +49,7 @@ type alias User =
 
 type Page
     = Home
-    | Sell
+    | AddItem
     | ExpiredAuctions
     | Auctions
     | About
@@ -125,7 +125,7 @@ routeParser =
     UrlParser.oneOf
         [ UrlParser.map Home top
         , UrlParser.map Auctions (UrlParser.s "currentauctions")
-        , UrlParser.map Sell (UrlParser.s "sell")
+        , UrlParser.map AddItem (UrlParser.s "sell")
         , UrlParser.map ExpiredAuctions (UrlParser.s "expiredauctions")
         , UrlParser.map About (UrlParser.s "about")
         , UrlParser.map Profile (UrlParser.s "profile")
@@ -148,7 +148,7 @@ view model =
 -- Navigation Bar // Links
 menu : Model -> Html Msg
 menu model =
- Grid.container []
+ Grid.container [ ]
     [Navbar.config NavMsg
         |> Navbar.withAnimation 
         |> Navbar.collapseMedium  
@@ -166,7 +166,7 @@ menu model =
             [ 
             Navbar.dropdown 
                 { id = "mydropdown"
-                , toggle = Navbar.dropdownToggle [href "#"] [ text "Auctions" ]
+                , toggle = Navbar.dropdownToggle [] [ text "Auctions" ]
                 , items =
                     [ Navbar.dropdownHeader [ text "Select" ]
                     , Navbar.dropdownItem
@@ -225,8 +225,8 @@ mainContent model =
             Auctions ->
                 pageAuctions model
 
-            Sell ->
-                pageSell model
+            AddItem ->
+                pageAddItem model
             
             ExpiredAuctions ->
                 pageExpired model
@@ -278,8 +278,8 @@ pageAuctions modelAuctions =
     ]
 
 
-pageSell : Model -> List (Html Msg)
-pageSell modelSell =
+pageAddItem : Model -> List (Html Msg)
+pageAddItem modelSell =
     [ h1 [] [ text "Add Item / Sell" ]
     , Grid.row []
         [ Grid.col []
