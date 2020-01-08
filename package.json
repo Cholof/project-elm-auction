@@ -1,0 +1,29 @@
+{
+  "name": "project-elm-auction",
+  "version": "1.0.0",
+  "description": "Frontend in elm for Auction application",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cholof/project-elm-auction.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cholof/project-elm-auction/issues"
+  },
+  "homepage": "https://github.com/Cholof/project-elm-auction#readme",
+  "devDependencies": {
+    "css-loader": "^3.4.1",
+    "elm-webpack-loader": "^6.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^1.1.2",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
+  }
+}

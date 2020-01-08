@@ -7,7 +7,6 @@ import Browser.Navigation as Navigation
 import Browser exposing (UrlRequest)
 import Url exposing (Url)
 import Url.Parser as UrlParser exposing ((</>), Parser, s, top)
-import Bootstrap.CDN exposing (..)
 import Bootstrap.Navbar as Navbar
 import Bootstrap.Grid as Grid
 import Bootstrap.Grid.Col as Col
@@ -18,6 +17,8 @@ import Bootstrap.Button as Button
 import Bootstrap.Form.InputGroup as InputGroup
 import Bootstrap.Form.Input as Input
 import Bootstrap.ListGroup as Listgroup
+
+
 
 main : Program Flags Model Msg
 main =
@@ -148,16 +149,16 @@ view model =
 -- Navigation Bar // Links
 menu : Model -> Html Msg
 menu model =
- Grid.container [ ]
-    [Navbar.config NavMsg
+    Navbar.config NavMsg
         |> Navbar.withAnimation 
         |> Navbar.collapseMedium  
         |> Navbar.info
         |> Navbar.brand [ href "#" ]
             [ img
-                [ src "assets/museum.svg"
+                [ src "src/assets/images/museum.svg"
                 , class "align-top"
-                , style "width" "30px"
+                , style "width" "40px"
+                , style "height" "40px"
                 ]
                 []
             , text "Home"
@@ -214,10 +215,10 @@ menu model =
             , Navbar.textItem [ Spacing.ml2Sm, class "muted" ] [ text "What are you looking for?"]
             ]
         |> Navbar.view model.navState
-    ]
+    
 mainContent : Model -> Html Msg
 mainContent model =
-    Grid.container [] <|
+    div [] (  
         case model.page of
             Home ->
                 pageHome model 
@@ -244,24 +245,31 @@ mainContent model =
                 pageSignout model
 
             NotFound ->
-                pageNotFound
+                pageNotFound)
 
 -- Homepage
 pageHome : Model -> List (Html Msg)
 pageHome modelHome =
-    [ h1 [] [ text "Home" ]
-    , Grid.row []
+     
+    [img [src "src/assets/images/market.jpg"
+                , style "width" "100%"
+                , style "height" "700px"] []
+        ,
+        Grid.row [] 
         [ Grid.col []
             [ Card.config [ Card.outlineDanger ]
+                
                 |> Card.headerH4 [class "text-center" ] [ text "Home" ]
                 |> Card.block []
-                    [ Block.text [] [ text "Todo: Image responsive" ]
-                    
+                    [ Block.text []
+                     [ text "Todo: Image responsive" ]
                     ]
                 |> Card.view
             ]
+            
         ]
     ]
+   
 
 -- Auctions Page
 -- 1. add list of Items 
@@ -269,7 +277,7 @@ pageHome modelHome =
 pageAuctions : Model -> List (Html Msg)
 pageAuctions modelAuctions =
     [ h2 [] [ text "Auctions" ]    
-    , div [] [InputGroup.config (InputGroup.text [ Input.placeholder "Amount"])
+    , div [] [InputGroup.config (InputGroup.text [ Input.placeholder "Amount" ])
         |> InputGroup.successors
             [ InputGroup.span [] [text " kr"]]
             |> InputGroup.view]
@@ -282,10 +290,10 @@ pageAddItem : Model -> List (Html Msg)
 pageAddItem modelSell =
     [ h1 [] [ text "Add Item / Sell" ]
     , Grid.row []
-        [ Grid.col []
+        [ Grid.col [ ]
             [ Card.config [ Card.outlineDanger ]
                 |> Card.headerH4 [class "text-center" ] [ text "Sell" ]
-                |> Card.block []
+                |> Card.block [ ]
                     [ Block.text [] [ text "Todo: Add Item" ]
                     
                     ]
@@ -332,8 +340,6 @@ pageAbout modelAbout =
         , Listgroup.li [Listgroup.warning] [ text "Todo: write about us?" ]
         ]
     ]
-
-
 
 -- Just not found
 pageNotFound : List (Html Msg)
