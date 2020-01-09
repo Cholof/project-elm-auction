@@ -58,6 +58,7 @@ type Page
     | NotFound
     | Signin
     | Signout
+    | Signup
     
 
 
@@ -132,6 +133,7 @@ routeParser =
         , UrlParser.map Profile (UrlParser.s "profile")
         , UrlParser.map Signin (UrlParser.s "signin")
         , UrlParser.map Signout (UrlParser.s "signout")
+        , UrlParser.map Signup (UrlParser.s "signup")
         ]
 
 -- View
@@ -151,6 +153,7 @@ menu : Model -> Html Msg
 menu model =
     Navbar.config NavMsg
         |> Navbar.withAnimation 
+        -- |> Navbar.fixTop
         |> Navbar.collapseMedium  
         |> Navbar.light
         |> Navbar.brand [ href "#" ]
@@ -190,14 +193,14 @@ menu model =
                     [ Navbar.dropdownHeader [ text "Select" ]
                     , Navbar.dropdownItem
                         [ href "#profile" ]
-                        [ text "myprofile" ]
+                        [ text "My profile" ]
                     , Navbar.dropdownItem
                         [ href "#signin" ]
-                        [ text "signin" ]
+                        [ text "Signin" ]
                     , Navbar.dropdownDivider
                     , Navbar.dropdownItem
                         [ href "#signout" ]
-                        [ text "signout" ]
+                        [ text "Signout" ]
                     ]
                 }
             
@@ -205,14 +208,19 @@ menu model =
             ]
         |> Navbar.customItems
             [ Navbar.formItem []
-                [ Input.text [ Input.attrs [placeholder "enter" ]]
+                [ Input.text [ Input.attrs [placeholder "Search your item" ]]
                 , Button.button
                     [ Button.success
                     , Button.attrs [ Spacing.ml2Sm]
                     ]
                     [ text "Search"]
                 ]
-            , Navbar.textItem [ Spacing.ml2Sm, class "muted" ] [ text "What are you looking for?"]
+             , Navbar.formItem []
+                [ Button.linkButton
+                    [ Button.success
+                    , Button.attrs [ Spacing.ml2Sm]
+                    ]
+                    [text "Signup"]]
             ]
         |> Navbar.view model.navState
     
@@ -244,6 +252,9 @@ mainContent model =
             Signout  ->
                 pageSignout model
 
+            Signup ->
+                pageSignup model
+
             NotFound ->
                 pageNotFound)
 
@@ -251,9 +262,9 @@ mainContent model =
 pageHome : Model -> List (Html Msg)
 pageHome modelHome =
      
-    [img [src "src/assets/images/market.jpg"
+    [img [src "src/assets/images/home.jpg"
                 , style "width" "100%"
-                , style "height" "700px"] []
+                , style "height" "750px"] []
         ,
         Grid.row [] 
         [ Grid.col []
@@ -284,7 +295,6 @@ pageAuctions modelAuctions =
     , Button.button [Button.primary]
         [ text "Bid Item" ]
     ]
-
 
 pageAddItem : Model -> List (Html Msg)
 pageAddItem modelSell =
@@ -330,14 +340,31 @@ pageSignout modelSignout =
      ,p[] [ text "Todo: Signout" ]
      ]
 
+pageSignup : Model -> List (Html Msg)
+pageSignup modelSignout = 
+     [ h1 [] [ text "Sign Up" ]
+     ,p[] [ text "Todo: Sign Up" ]
+     ]
+
 -- About Page
 pageAbout : Model -> List (Html Msg)
 pageAbout modelAbout =
-    [ h1 [] [ text "About" ]
-    , Listgroup.ul
-        [ Listgroup.li [Listgroup.warning] [ text "Chi" ]
-        , Listgroup.li [Listgroup.warning] [ text "Olof" ]
-        , Listgroup.li [Listgroup.warning] [ text "Todo: write about us?" ]
+     [img [src "src/assets/images/about.jpg"
+                , style "width" "100%"
+                , style "height" "750px"] []
+        ,
+        Grid.row [] 
+        [ Grid.col []
+            [ Card.config [ Card.outlineLight ]
+                
+                |> Card.headerH4 [class "text-center" ] [ text "About" ]
+                |> Card.block []
+                    [ Block.text [class "text-center"]
+                     [ text "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum" ]
+                    ]
+                |> Card.view
+            ]
+            
         ]
     ]
 
