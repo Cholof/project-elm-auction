@@ -9,6 +9,7 @@ import Url exposing (Url)
 import Url.Parser as UrlParser exposing ((</>), Parser, s, top)
 import Bootstrap.Navbar as Navbar
 import Bootstrap.Grid as Grid
+import Bootstrap.Grid.Row as Row
 import Bootstrap.Grid.Col as Col
 import Bootstrap.Card as Card
 import Bootstrap.Card.Block as Block
@@ -17,8 +18,6 @@ import Bootstrap.Button as Button
 import Bootstrap.Form.InputGroup as InputGroup
 import Bootstrap.Form.Input as Input
 import Bootstrap.ListGroup as Listgroup
-
-
 
 main : Program Flags Model Msg
 main =
@@ -40,13 +39,13 @@ type alias Model =
     , navState : Navbar.State
     }
 
-type alias User =
-    { 
-      username : String
-    , firstName : String
-    , surname : String
-    , age : Int
-    }
+-- type alias User =
+--     { 
+--       username : String
+--     , firstName : String
+--     , surname : String
+--     , age : Int
+--     }
 
 type Page
     = Home
@@ -196,11 +195,11 @@ menu model =
                         [ text "My profile" ]
                     , Navbar.dropdownItem
                         [ href "#signin" ]
-                        [ text "Signin" ]
+                        [ text "Sign in" ]
                     , Navbar.dropdownDivider
                     , Navbar.dropdownItem
                         [ href "#signout" ]
-                        [ text "Signout" ]
+                        [ text "Sign out" ]
                     ]
                 }
             
@@ -220,8 +219,9 @@ menu model =
                     [ Button.success
                     , Button.attrs [ Spacing.ml2Sm]
                     ]
-                    [text "Signup"]]
-            ]
+                    [text "Signup"]
+                    ]
+            ]         
         |> Navbar.view model.navState
     
 mainContent : Model -> Html Msg
@@ -287,39 +287,209 @@ pageHome modelHome =
 -- 2. Move InputGroup and Button distinct item
 pageAuctions : Model -> List (Html Msg)
 pageAuctions modelAuctions =
-    [ h2 [] [ text "Auctions" ]    
-    , div [] [InputGroup.config (InputGroup.text [ Input.placeholder "Amount" ])
-        |> InputGroup.successors
-            [ InputGroup.span [] [text " kr"]]
-            |> InputGroup.view]
-    , Button.button [Button.primary]
-        [ text "Bid Item" ]
-    ]
-
-pageAddItem : Model -> List (Html Msg)
-pageAddItem modelSell =
-    [ h1 [] [ text "Add Item / Sell" ]
-    , Grid.row []
-        [ Grid.col [ ]
-            [ Card.config [ Card.outlineDanger ]
-                |> Card.headerH4 [class "text-center" ] [ text "Sell" ]
-                |> Card.block [ ]
-                    [ Block.text [] [ text "Todo: Add Item" ]
-                    
+     [ h1 [class "text-center"] [ text "Auctions" ]
+    , Grid.container[]
+        [ Grid.row
+            [ Row.topXs ]
+               [ Grid.col
+                [ Col.xs3 ]
+                    [ Card.config [ Card.outlineLight ]
+                     |> Card.headerH4 [class "text-center" ] [ text "About" ]
+                     |> Card.block []
+                    [ Block.text [class "text-center"]
+                        [text "Item 1"]
+                    ]
+                     |> Card.block []
+                     [ Block.text [class "text-center"]
+                       [text "Blablala"]
                     ]
                 |> Card.view
             ]
-        ]
+        , Grid.col
+             [ Col.xs3 ]
+                    [ Card.config [ Card.outlineLight ]
+                     |> Card.headerH4 [class "text-center" ] [ text "About" ]
+                     |> Card.block []
+                    [ Block.text [class "text-center"]
+                        [text "Item 1"]
+                    ]
+                     |> Card.block []
+                     [ Block.text [class "text-center"]
+                       [text "Blablala"]
+                    ]
+                |> Card.view
+            ]
+        , Grid.col
+             [ Col.xs3 ]
+                    [ Card.config [ Card.outlineLight ]
+                     |> Card.headerH4 [class "text-center" ] [ text "About" ]
+                     |> Card.block []
+                    [ Block.text [class "text-center"]
+                        [text "Item 1"]
+                    ]
+                     |> Card.block []
+                     [ Block.text [class "text-center"]
+                       [text "Blablala"]
+                    ]
+                |> Card.view
+            ]
+            , Grid.col
+             [ Col.xs3 ]
+                    [ Card.config [ Card.outlineLight ]
+                     |> Card.headerH4 [class "text-center" ] [ text "About" ]
+                     |> Card.block []
+                    [ Block.text [class "text-center"]
+                        [text "Item 1"]
+                    ]
+                     |> Card.block []
+                     [ Block.text [class "text-center"]
+                       [text "Blablala"]
+                    ]
+                |> Card.view
+            ]
+       ]
+       ]
+    ]
+    -- [ h2 [] [ text "Auctions" ]    
+    -- , div [] [InputGroup.config (InputGroup.text [ Input.placeholder "Amount" ])
+    --     |> InputGroup.successors
+    --         [ InputGroup.span [] [text " kr"]]
+    --         |> InputGroup.view]
+    -- , Button.button [Button.primary]
+    --     [ text "Bid Item" ]
+    -- ]
+
+pageAddItem : Model -> List (Html Msg)
+pageAddItem modelSell =
+    [ h1 [class "text-center"] [ text "Add Item / Sell" ]
+    , Grid.container[]
+        [ Grid.row
+            [ Row.topXs ]
+               [ Grid.col
+               [ Col.xs3 ]
+                    [ Card.config [ Card.outlineLight ]
+                     |> Card.headerH4 [class "text-center" ] [ text "About" ]
+                     |> Card.block []
+                    [ Block.text [class "text-center"]
+                        [text "Item 1"]
+                    ]
+                     |> Card.block []
+                     [ Block.text [class "text-center"]
+                       [text "Blablala"]
+                    ]
+                    
+                |> Card.view
+            ]
+        , Grid.col
+             [ Col.xs3 ]
+                    [ Card.config [ Card.outlineLight ]
+                     |> Card.headerH4 [class "text-center" ] [ text "About" ]
+                     |> Card.block []
+                    [ Block.text [class "text-center"]
+                        [text "Item 1"]
+                    ]
+                     |> Card.block []
+                     [ Block.text [class "text-center"]
+                       [text "Blablala"]
+                    ]
+                |> Card.view
+            ]
+        , Grid.col
+             [ Col.xs3 ]
+                    [ Card.config [ Card.outlineLight ]
+                     |> Card.headerH4 [class "text-center" ] [ text "About" ]
+                     |> Card.block []
+                    [ Block.text [class "text-center"]
+                        [text "Item 1"]
+                    ]
+                     |> Card.block []
+                     [ Block.text [class "text-center"]
+                       [text "Blablala"]
+                    ]
+                |> Card.view
+            ]
+            , Grid.col
+             [ Col.xs3 ]
+                    [ Card.config [ Card.outlineLight ]
+                     |> Card.headerH4 [class "text-center" ] [ text "About" ]
+                     |> Card.block []
+                    [ Block.text [class "text-center"]
+                        [text "Item 1"]
+                    ]
+                     |> Card.block []
+                     [ Block.text [class "text-center"]
+                       [text "Blablala"]
+                    ]
+                |> Card.view
+            ]
+       ]
+       ]
     ]
 
 pageExpired : Model -> List (Html Msg)
 pageExpired modelExpired =
-    [ h1 [] [ text "Expired" ]
-    , Listgroup.ul
-        [ Listgroup.li [Listgroup.info] [ text "Chi" ]
-        , Listgroup.li [Listgroup.info] [ text "Olof" ]
-        , Listgroup.li [Listgroup.info] [ text "Todo: write about us?" ]
-        ]
+    [ h1 [class "text-center"] [ text "Expired Item" ]
+    , Grid.container[]
+        [ Grid.row
+            [ Row.topXs ]
+               [ Grid.col
+                [ Col.xs3 ]
+                    [ Card.config [ Card.outlineLight ]
+                     |> Card.headerH4 [class "text-center" ] [ text "About" ]
+                     |> Card.block []
+                    [ Block.text [class "text-center"]
+                        [text "Item 1"]
+                    ]
+                     |> Card.block []
+                     [ Block.text [class "text-center"]
+                       [text "Blablala"]
+                    ]
+                |> Card.view
+            ]
+        , Grid.col
+             [ Col.xs3 ]
+                    [ Card.config [ Card.outlineLight ]
+                     |> Card.headerH4 [class "text-center" ] [ text "About" ]
+                     |> Card.block []
+                    [ Block.text [class "text-center"]
+                        [text "Item 1"]
+                    ]
+                     |> Card.block []
+                     [ Block.text [class "text-center"]
+                       [text "Blablala"]
+                    ]
+                |> Card.view
+            ]
+        , Grid.col
+             [ Col.xs3 ]
+                    [ Card.config [ Card.outlineLight ]
+                     |> Card.headerH4 [class "text-center" ] [ text "About" ]
+                     |> Card.block []
+                    [ Block.text [class "text-center"]
+                        [text "Item 1"]
+                    ]
+                     |> Card.block []
+                     [ Block.text [class "text-center"]
+                       [text "Blablala"]
+                    ]
+                |> Card.view
+            ]
+            , Grid.col
+             [ Col.xs3 ]
+                    [ Card.config [ Card.outlineLight ]
+                     |> Card.headerH4 [class "text-center" ] [ text "About" ]
+                     |> Card.block []
+                    [ Block.text [class "text-center"]
+                        [text "Item 1"]
+                    ]
+                     |> Card.block []
+                     [ Block.text [class "text-center"]
+                       [text "Blablala"]
+                    ]
+                |> Card.view
+            ]
+         ]
+       ]
     ]
 -- User Page
 pageProfile : Model -> List (Html Msg)
@@ -356,7 +526,6 @@ pageAbout modelAbout =
         Grid.row [] 
         [ Grid.col []
             [ Card.config [ Card.outlineLight ]
-                
                 |> Card.headerH4 [class "text-center" ] [ text "About" ]
                 |> Card.block []
                     [ Block.text [class "text-center"]
@@ -374,5 +543,3 @@ pageNotFound =
     [ h1 [] [ text "Not found" ]
     , text "Sorry couldn't find that page"
     ]
-
-    
