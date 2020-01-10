@@ -302,7 +302,7 @@ pageHome =
     [ img
         [ src "src/assets/images/home.jpg"
         , style "width" "100%"
-        , style "height" "750px"
+        , style "height" "850px"
         ]
         []
     , Grid.row []
@@ -389,48 +389,7 @@ pageAddItem =
                         ]
                     |> Card.view
                 ]
-            , Grid.col
-                [ Col.xs3 ]
-                [ Card.config [ Card.outlineLight ]
-                    |> Card.headerH4 [ class "text-center" ] [ text "About" ]
-                    |> Card.block []
-                        [ Block.text [ class "text-center" ]
-                            [ text "Item 1" ]
-                        ]
-                    |> Card.block []
-                        [ Block.text [ class "text-center" ]
-                            [ text "Blablala" ]
-                        ]
-                    |> Card.view
-                ]
-            , Grid.col
-                [ Col.xs3 ]
-                [ Card.config [ Card.outlineLight ]
-                    |> Card.headerH4 [ class "text-center" ] [ text "About" ]
-                    |> Card.block []
-                        [ Block.text [ class "text-center" ]
-                            [ text "Item 1" ]
-                        ]
-                    |> Card.block []
-                        [ Block.text [ class "text-center" ]
-                            [ text "Blablala" ]
-                        ]
-                    |> Card.view
-                ]
-            , Grid.col
-                [ Col.xs3 ]
-                [ Card.config [ Card.outlineLight ]
-                    |> Card.headerH4 [ class "text-center" ] [ text "About" ]
-                    |> Card.block []
-                        [ Block.text [ class "text-center" ]
-                            [ text "Item 1" ]
-                        ]
-                    |> Card.block []
-                        [ Block.text [ class "text-center" ]
-                            [ text "Blablala" ]
-                        ]
-                    |> Card.view
-                ]
+            
             ]
         ]
     ]
@@ -443,48 +402,6 @@ pageExpired =
         [ Grid.row
             [ Row.topXs ]
             [ Grid.col
-                [ Col.xs3 ]
-                [ Card.config [ Card.outlineLight ]
-                    |> Card.headerH4 [ class "text-center" ] [ text "About" ]
-                    |> Card.block []
-                        [ Block.text [ class "text-center" ]
-                            [ text "Item 1" ]
-                        ]
-                    |> Card.block []
-                        [ Block.text [ class "text-center" ]
-                            [ text "Blablala" ]
-                        ]
-                    |> Card.view
-                ]
-            , Grid.col
-                [ Col.xs3 ]
-                [ Card.config [ Card.outlineLight ]
-                    |> Card.headerH4 [ class "text-center" ] [ text "About" ]
-                    |> Card.block []
-                        [ Block.text [ class "text-center" ]
-                            [ text "Item 1" ]
-                        ]
-                    |> Card.block []
-                        [ Block.text [ class "text-center" ]
-                            [ text "Blablala" ]
-                        ]
-                    |> Card.view
-                ]
-            , Grid.col
-                [ Col.xs3 ]
-                [ Card.config [ Card.outlineLight ]
-                    |> Card.headerH4 [ class "text-center" ] [ text "About" ]
-                    |> Card.block []
-                        [ Block.text [ class "text-center" ]
-                            [ text "Item 1" ]
-                        ]
-                    |> Card.block []
-                        [ Block.text [ class "text-center" ]
-                            [ text "Blablala" ]
-                        ]
-                    |> Card.view
-                ]
-            , Grid.col
                 [ Col.xs3 ]
                 [ Card.config [ Card.outlineLight ]
                     |> Card.headerH4 [ class "text-center" ] [ text "About" ]
@@ -516,8 +433,8 @@ pageProfile =
 
 pageSignin : List (Html Msg)
 pageSignin =
-    [ h1 [ style "text-align" "center" ] [ text "Sign in" ]
-    , Form.form [ style "position" "absolute", style "left" "40%" ]
+    [ 
+     Form.form [ style "position" "absolute", style "left" "40%", style "top" "60%"]
         [ Form.group []
             [ Form.label [ for "username" ] [ text "Username" ]
             , Input.text [ Input.id "username" ]
@@ -528,6 +445,12 @@ pageSignin =
             ]
         , Button.button [ Button.primary ] [ text "Sign in" ]
         ]
+    , div [] [img
+        [ src "src/assets/images/signin.jpg"
+        , style "width" "100%"
+        , style "height" "750px"
+        ]
+        []]
     ]
 
 
