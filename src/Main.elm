@@ -3,6 +3,7 @@ module Main exposing (main)
 import Bootstrap.Button as Button
 import Bootstrap.Card as Card
 import Bootstrap.Card.Block as Block
+import Bootstrap.Form as Form
 import Bootstrap.Form.Input as Input
 import Bootstrap.Form.InputGroup as InputGroup
 import Bootstrap.Grid as Grid
@@ -206,8 +207,7 @@ menu model =
                 { id = "mydropdown"
                 , toggle = Navbar.dropdownToggle [] [ text "Auctions" ]
                 , items =
-                    [ Navbar.dropdownHeader [ text "Select" ]
-                    , Navbar.dropdownItem
+                    [ Navbar.dropdownItem
                         [ href "#currentauctions" ]
                         [ text "Current Auctions" ]
                     , Navbar.dropdownItem
@@ -223,8 +223,7 @@ menu model =
                 { id = "profiledropdown"
                 , toggle = Navbar.dropdownToggle [] [ text "Profile" ]
                 , items =
-                    [ Navbar.dropdownHeader [ text "Select" ]
-                    , Navbar.dropdownItem
+                    [ Navbar.dropdownItem
                         [ href "#profile" ]
                         [ text "My profile" ]
                     , Navbar.dropdownItem
@@ -281,7 +280,7 @@ mainContent model =
                 pageProfile
 
             Signin ->
-                pageSigin
+                pageSignin
 
             Signout ->
                 pageSignout
@@ -549,10 +548,20 @@ pageProfile =
     ]
 
 
-pageSigin : List (Html Msg)
-pageSigin =
-    [ h1 [] [ text "Signin" ]
-    , p [] [ text "Todo: Signin" ]
+pageSignin : List (Html Msg)
+pageSignin =
+    [ h1 [ style "text-align" "center" ] [ text "Sign in" ]
+    , Form.form [ style "position" "absolute", style "left" "40%" ]
+        [ Form.group []
+            [ Form.label [ for "username" ] [ text "Username" ]
+            , Input.text [ Input.id "username" ]
+            ]
+        , Form.group []
+            [ Form.label [ for "password" ] [ text "Password" ]
+            , Input.password [ Input.id "password" ]
+            ]
+        , Button.button [ Button.primary ] [ text "Sign in" ]
+        ]
     ]
 
 
