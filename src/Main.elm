@@ -5,11 +5,9 @@ import Bootstrap.Card as Card
 import Bootstrap.Card.Block as Block
 import Bootstrap.Form as Form
 import Bootstrap.Form.Input as Input
-import Bootstrap.Form.InputGroup as InputGroup
 import Bootstrap.Grid as Grid
 import Bootstrap.Grid.Col as Col
 import Bootstrap.Grid.Row as Row
-import Bootstrap.ListGroup as Listgroup
 import Bootstrap.Navbar as Navbar
 import Bootstrap.Utilities.Spacing as Spacing
 import Browser exposing (UrlRequest)
@@ -20,6 +18,8 @@ import Html.Events exposing (onClick)
 import Url exposing (Url)
 import Url.Parser as UrlParser exposing ((</>), Parser, s, top)
 
+-- Model > View > Msg > Update > Model ....
+-- aTODO: preventDefault / Search disabled specific a
 
 main : Program Flags Model Msg
 main =
@@ -192,20 +192,34 @@ menu model =
         -- |> Navbar.fixTop
         |> Navbar.collapseMedium
         |> Navbar.light
+        |> Navbar.attrs [ style "height" "90px"
+            , style "padding" "15px"
+            , style "border-bottom-style" "solid"
+            , style "border-bottom-color" "black"]
         |> Navbar.brand [ href "#" ]
             [ img
                 [ src "src/assets/images/museum.svg"
-                , class "align-top"
-                , style "width" "40px"
-                , style "height" "40px"
+                , class "d-inline-block align-top"
+                , style "width" "80px"
+                , style "height" "80px"
                 ]
                 []
-            , text "Home"
             ]
         |> Navbar.items
-            [ Navbar.dropdown
+            [ Navbar.itemLinkActive
+                [ href "#"
+                , style "padding" "12px"
+                , style "color" "OrangeRed"
+                , style "font-size" "20px"
+                ]
+                [ text "Home" ]
+            , Navbar.dropdown
                 { id = "mydropdown"
-                , toggle = Navbar.dropdownToggle [] [ text "Auctions" ]
+                , toggle =
+                    Navbar.dropdownToggle
+                        [ style "font-size" "20px"
+                        , style "padding" "12px" ]
+                        [ text "Auctions" ]
                 , items =
                     [ Navbar.dropdownItem
                         [ href "#currentauctions" ]
@@ -221,7 +235,11 @@ menu model =
                 }
             , Navbar.dropdown
                 { id = "profiledropdown"
-                , toggle = Navbar.dropdownToggle [] [ text "Profile" ]
+                , toggle =
+                    Navbar.dropdownToggle
+                        [ style "font-size" "20px"
+                        , style "padding" "12px" ]
+                        [ text "Profile" ]
                 , items =
                     [ Navbar.dropdownItem
                         [ href "#profile" ]
@@ -235,21 +253,27 @@ menu model =
                         [ text "Sign out" ]
                     ]
                 }
-            , Navbar.itemLink [ href "#about" ] [ text "About" ]
+            , Navbar.itemLink
+                [ href "#about"
+                , style "font-size" "20px"
+                , style "padding" "12px"
+                ]
+                [ text "About" ]
             ]
         |> Navbar.customItems
             [ Navbar.formItem []
                 [ Input.text [ Input.attrs [ placeholder "Search your item" ] ]
                 , Button.button
-                    [ Button.success
+                    [ Button.secondary
                     , Button.attrs [ Spacing.ml2Sm ]
                     ]
                     [ text "Search" ]
                 ]
             , Navbar.formItem []
                 [ Button.linkButton
-                    [ Button.success
+                    [ Button.secondary
                     , Button.attrs [ Spacing.ml2Sm ]
+                    , Button.attrs [ href "#signup" ]
                     ]
                     [ text "Signup" ]
                 ]
@@ -331,7 +355,7 @@ produceColumn =
         [ Col.xs3 ]
         [ Card.config [ Card.outlineLight ]
             |> Card.headerH4 [ class "text-center" ]
-                [ img [ src "src/assets/images/knowledge.jpg", style "width" "10rem" ] [] ]
+                [ img [ src "src/assets/images/market.jpg", style "width" "10rem" ] [] ]
             |> Card.block []
                 [ Block.text [ class "text-center" ]
                     [ text "Item name" ]
@@ -357,18 +381,6 @@ pageAuctions =
         ]
     ]
 
-
-
--- [ h2 [] [ text "Auctions" ]
--- , div [] [InputGroup.config (InputGroup.text [ Input.placeholder "Amount" ])
---     |> InputGroup.successors
---         [ InputGroup.span [] [text " kr"]]
---         |> InputGroup.view]
--- , Button.button [Button.primary]
---     [ text "Bid Item" ]
--- ]
-
-
 pageAddItem : List (Html Msg)
 pageAddItem =
     [ h1 [ class "text-center" ] [ text "Add Item / Sell" ]
@@ -389,7 +401,6 @@ pageAddItem =
                         ]
                     |> Card.view
                 ]
-            
             ]
         ]
     ]
@@ -433,24 +444,35 @@ pageProfile =
 
 pageSignin : List (Html Msg)
 pageSignin =
-    [ 
-     Form.form [ style "position" "absolute", style "left" "40%", style "top" "60%"]
+    [ Form.form [ style "position" "absolute", style "left" "42%", style "top" "55%" ]
         [ Form.group []
-            [ Form.label [ for "username" ] [ text "Username" ]
-            , Input.text [ Input.id "username" ]
+            [ Form.label
+                [ for "username"
+                , style "font-size" "25px"
+                , style "color" "white"
+                ]
+                [ text "Username" ]
+            , Input.text [ Input.id "username", Input.placeholder "emailname@domain" ]
             ]
         , Form.group []
-            [ Form.label [ for "password" ] [ text "Password" ]
-            , Input.password [ Input.id "password" ]
+            [ Form.label
+                [ for "password"
+                , style "font-size" "25px"
+                , style "color" "white"
+                ]
+                [ text "Password" ]
+            , Input.password [ Input.id "password", Input.placeholder "minimum 8 tecken" ]
             ]
-        , Button.button [ Button.primary ] [ text "Sign in" ]
+        , Button.button [ Button.secondary ] [ text "Sign in" ]
         ]
-    , div [] [img
-        [ src "src/assets/images/signin.jpg"
-        , style "width" "100%"
-        , style "height" "750px"
+    , div []
+        [ img
+            [ src "src/assets/images/signin.jpg"
+            , style "width" "100%"
+            , style "height" "750px"
+            ]
+            []
         ]
-        []]
     ]
 
 
