@@ -85,8 +85,6 @@ init flags url key =
     in
     ( model, Cmd.batch [ urlCmd, navCmd ] )
 
-
-
 -- Msg 
 
 
@@ -115,7 +113,8 @@ update msg model =
         ClickedLink req ->
             case req of
                 Browser.Internal url ->
-                    ( model, Navigation.pushUrl model.navKey <| Url.toString url )
+                    
+                    ( model, if url.fragment == Just "" then Cmd.none else Navigation.pushUrl model.navKey <| Url.toString url )
 
                 Browser.External href ->
                     ( model, Navigation.load href )
@@ -151,7 +150,6 @@ decode url =
 
 
 -- Routeparser // Controller
-
 
 routeParser : Parser (Page -> a) a
 routeParser =
@@ -217,7 +215,7 @@ menu model =
                 { id = "mydropdown"
                 , toggle =
                     Navbar.dropdownToggle
-                        [ disabled True,
+                        [ 
                         style "font-size" "20px"
                         , style "padding" "12px"
                         ]
