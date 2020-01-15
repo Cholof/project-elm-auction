@@ -18,8 +18,11 @@ import Html.Events exposing (onClick)
 import Url exposing (Url)
 import Url.Parser as UrlParser exposing ((</>), Parser, s, top)
 
+
+
 -- Model > View > Msg > Update > Model ....
 -- aTODO: preventDefault / Search disabled specific a
+
 
 main : Program Flags Model Msg
 main =
@@ -84,7 +87,7 @@ init flags url key =
 
 
 
--- Msg return states
+-- Msg 
 
 
 type Msg
@@ -183,8 +186,7 @@ view model =
 
 
 -- Navigation Bar // Links
-
-
+            
 menu : Model -> Html Msg
 menu model =
     Navbar.config NavMsg
@@ -192,10 +194,8 @@ menu model =
         -- |> Navbar.fixTop
         |> Navbar.collapseMedium
         |> Navbar.light
-        |> Navbar.attrs [ style "height" "90px"
-            , style "padding" "15px"
-            , style "border-bottom-style" "solid"
-            , style "border-bottom-color" "black"]
+        |> Navbar.attrs
+            myNavbarBorderStyle
         |> Navbar.brand [ href "#" ]
             [ img
                 [ src "src/assets/images/museum.svg"
@@ -217,8 +217,10 @@ menu model =
                 { id = "mydropdown"
                 , toggle =
                     Navbar.dropdownToggle
-                        [ style "font-size" "20px"
-                        , style "padding" "12px" ]
+                        [ disabled True,
+                        style "font-size" "20px"
+                        , style "padding" "12px"
+                        ]
                         [ text "Auctions" ]
                 , items =
                     [ Navbar.dropdownItem
@@ -238,7 +240,8 @@ menu model =
                 , toggle =
                     Navbar.dropdownToggle
                         [ style "font-size" "20px"
-                        , style "padding" "12px" ]
+                        , style "padding" "12px"
+                        ]
                         [ text "Profile" ]
                 , items =
                     [ Navbar.dropdownItem
@@ -381,6 +384,7 @@ pageAuctions =
         ]
     ]
 
+
 pageAddItem : List (Html Msg)
 pageAddItem =
     [ h1 [ class "text-center" ] [ text "Add Item / Sell" ]
@@ -444,7 +448,7 @@ pageProfile =
 
 pageSignin : List (Html Msg)
 pageSignin =
-    [ Form.form [ style "position" "absolute", style "left" "42%", style "top" "55%" ]
+   [ Form.form [ style "position" "absolute", style "left" "42%", style "top" "55%" ]
         [ Form.group []
             [ Form.label
                 [ for "username"
@@ -485,8 +489,75 @@ pageSignout =
 
 pageSignup : List (Html Msg)
 pageSignup =
-    [ h1 [] [ text "Sign Up" ]
-    , p [] [ text "Todo: Sign Up" ]
+    [h1 [ style "position" "absolute", style "left" "53%", style "top" "20%"] [ text "Create Profile" ]
+    ,
+        Form.form [ style "position" "absolute", style "left" "53%", style "top" "30%" ]
+       
+        [ Form.group []
+            [ Form.label
+                [ for "username"
+                , style "font-size" "15px"
+                , style "color" "black"
+                ]
+                [ text "Username" ]
+            , Input.text [ Input.id "username", Input.placeholder "Username" ]
+            ]
+        , Form.group []
+            [ Form.label
+                [ for "surname"
+                , style "font-size" "15px"
+                , style "color" "black"
+                ]
+                [ text "Surname" ]
+            , Input.password [ Input.id "surname", Input.placeholder "Surname" ]
+            ]
+        , Form.group []
+            [ Form.label
+                [ for "address"
+                , style "font-size" "15px"
+                , style "color" "black"
+                ]
+                [ text "Address" ]
+            , Input.password [ Input.id "address", Input.placeholder "Address" ]
+            ]
+        , Form.group []
+            [ Form.label
+                [ for "email"
+                , style "font-size" "15px"
+                , style "color" "black"
+                ]
+                [ text "Email" ]
+            , Input.password [ Input.id "email", Input.placeholder "Email" ]
+            ]
+        , Form.group []
+            [ Form.label
+                [ for "password"
+                , style "font-size" "15px"
+                , style "color" "black"
+                ]
+                [ text "Password" ]
+            , Input.password [ Input.id "password", Input.placeholder "Password" ]
+            ]
+        , Form.group []
+            [ Form.label
+                [ for "repeatPassword"
+                , style "font-size" "15px"
+                , style "color" "black"
+                ]
+                [ text "Repeat password" ]
+            , Input.password [ Input.id "repeatPassword", Input.placeholder "Repeat password" ]
+            ]
+        , Button.button [ Button.secondary ] [ text "Create account" ]
+        ]
+    , div []
+        [ img
+            [ src "src/assets/images/signup.jpg"
+            , style "right" "50%"
+            , style "width" "50%"
+            , style "height" "1050px"
+            ]
+            []
+        ]
     ]
 
 
@@ -525,3 +596,14 @@ pageNotFound =
     [ h1 [] [ text "Not found" ]
     , text "Sorry couldn't find that page"
     ]
+
+
+
+-- Style functions
+
+myNavbarBorderStyle : List (Attribute Msg)
+myNavbarBorderStyle =
+            [ style "height" "90px"
+            , style "padding" "15px"
+            , style "border-bottom-style" "solid"
+            , style "border-bottom-color" "grey"]
