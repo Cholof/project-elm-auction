@@ -162,7 +162,7 @@ routeParser =
     UrlParser.oneOf
         [ UrlParser.map Home top
         , UrlParser.map Auctions (UrlParser.s "currentauctions")
-        , UrlParser.map AddItem (UrlParser.s "sell")
+        , UrlParser.map AddItem (UrlParser.s "additem")
         , UrlParser.map ExpiredAuctions (UrlParser.s "expiredauctions")
         , UrlParser.map About (UrlParser.s "about")
         , UrlParser.map Profile (UrlParser.s "profile")
@@ -231,7 +231,7 @@ menu model =
                         [ href "#currentauctions" ]
                         [ text "Current Auctions" ]
                     , Navbar.dropdownItem
-                        [ href "#sell" ]
+                        [ href "#additem" ]
                         [ text "Sell item" ]
                     , Navbar.dropdownDivider
                     , Navbar.dropdownItem
@@ -350,7 +350,6 @@ pageHome =
     ]
 
 
-
 produceColumn : Grid.Column msg
 produceColumn =
     Grid.col
@@ -369,7 +368,11 @@ produceColumn =
             |> Card.view
         ]
 
+
+
 -- Auctions=
+
+
 pageAuctions : List (Html Msg)
 pageAuctions =
     [ h1 [ class "text-center" ] [ text "Auctions" ]
@@ -383,7 +386,11 @@ pageAuctions =
         ]
     ]
 
+
+
 -- Additem=
+
+
 pageAddItem : List (Html Msg)
 pageAddItem =
     [ h1 [ class "text-center" ] [ text "Add Item / Sell" ]
@@ -408,7 +415,11 @@ pageAddItem =
         ]
     ]
 
+
+
 -- Expired=
+
+
 pageExpired : List (Html Msg)
 pageExpired =
     [ h1 [ class "text-center" ] [ text "Expired Item" ]
@@ -435,85 +446,150 @@ pageExpired =
 
 
 
--- Profile= 
+-- Profile=
+
 
 pageProfile : List (Html Msg)
 pageProfile =
-        
-    [ Card.config [ Card.attrs [ style  "width" "20rem" , style "left" "15%" ] ]
-        
-          |> Card.header [ class "text-center" ]
-        [ img [ src "./src/assets/images/profile.png", style "width" "10rem" ] []
-        , h3 [ Spacing.mt2 ] [ text "Profile" ]
+    
+    [ Card.config [ Card.attrs [ style "width" "20rem", style "height" "800px " ] ]
+        |> Card.header [ class "text-center" ]
+            [ img [ src "./src/assets/images/profile.png", style "width" "15rem" ] []
+            , h3 [ Spacing.mt2 ] [ text "Profile" ]
+            ]
+        |> Card.block []
+            [ Block.titleH4 [ style "padding" "10px" ] [ text "Menu" ]
+            , Block.custom <|
+                Button.linkButton
+                    [ Button.outlineDark
+                    , Button.attrs [ style "width" "12rem", style "margin" "10px" ]
+                    , Button.attrs [ href "#profile" ]
+                    ]
+                    [ text "My Profile" ]
+            , Block.custom <|
+                Button.linkButton
+                    [ Button.outlineDark
+                    , Button.attrs [ style "width" "12rem", style "margin" "10px" ]
+                    , Button.attrs [ href "#currentauctions" ]
+                    ]
+                    [ text "Your items" ]
+            , Block.custom <|
+                Button.linkButton
+                    [ Button.outlineDark
+                    , Button.attrs [ style "width" "12rem", style "margin" "10px" ]
+                    , Button.attrs [ href "#additem" ]
+                    ]
+                    [ text "Sell item" ]
+            , Block.custom <|
+                Button.linkButton
+                    [ Button.outlineDark
+                    , Button.attrs [ style "width" "12rem", style "margin" "10px" ]
+                    , Button.attrs [ href "#signout" ]
+                    ]
+                    [ text "Sign out" ]
+            ]
+        |> Card.view
+    , Grid.container
+        [ style "position" "absolute"
+        , style "left" "20%"
+        , style "top" "15%"
         ]
-          |> Card.block []
-        [ Block.titleH4 [] [ text "Menu" ]
-        , Block.custom <|
-            Button.linkButton [ Button.primary ] [text "My Profile" ]
-        , Block.custom <|
-            Button.linkButton [ Button.primary ] [ text "Your items" ]
-        , Block.custom <|
-            Button.linkButton [ Button.primary ] [ text "Go somewhere" ]
+        [ h1 [] [ text "My profile" ] ]
+    , Grid.container
+        [ style "position" "absolute"
+        , style "left" "20%"
+        , style "top" "25%"
         ]
-    |> Card.view
-    , Grid.container [style "position" "absolute", style "left" "35%", style "top" "30%" ]
-    [ Form.form []
-        [ Form.row []
-            [ Form.colLabel [ Col.sm2 ] [ text "Name : " ]
-            , Form.col [ Col.xs3 ]
-                [ Input.email [] ]
+        [ Form.form []
+            [ Form.row []
+                [ Form.colLabel [ Col.sm2 ] [ text "Name : " ]
+                , Form.col [ Col.xs3 ]
+                    [ Input.text [ Input.id "name", Input.value "Chi" ] ]
+                ]
+            , Form.row []
+                [ Form.colLabel [ Col.sm2 ] [ text "Surname : " ]
+                , Form.col [ Col.xs3 ]
+                    [ Input.text [ Input.id "surename", Input.value "Trinh" ] ]
+                ]
+            , Form.row []
+                [ Form.colLabel [ Col.sm2 ] [ text "Personnumber : " ]
+                , Form.col [ Col.xs3 ]
+                    [ Input.text [ Input.id "personNumber", Input.value "220222-2259" ] ]
+                ]
+            , Form.row []
+                [ Form.colLabel [ Col.sm2 ] [ text "Alias : " ]
+                , Form.col [ Col.xs3 ]
+                    [ Input.text [ Input.id "alias", Input.value "Chipstick" ] ]
+                ]
+            , Form.row []
+                [ Form.colLabel [ Col.sm2 ] [ text "Email : " ]
+                , Form.col [ Col.xs3 ]
+                    [ Input.text [ Input.id "email", Input.value "Chi@email.se", Input.placeholder "example: name@domain" ] ]
+                ]
+            , Form.row []
+                [ Form.colLabel [ Col.sm2 ] [ text "Address : " ]
+                , Form.col [ Col.xs3 ]
+                    [ Input.text [ Input.id "address", Input.value "Vasagatan 19", Input.placeholder "example: Sagagatan 11" ] ]
+                ]
+            , Form.row []
+                [ Form.colLabel [ Col.sm2 ] [ text "Postal : " ]
+                , Form.col [ Col.xs3 ]
+                    [ Input.text [ Input.id "Zip", Input.value "411 11", Input.placeholder "example: 411 11" ] ]
+                , Form.col [ Col.xs3 ]
+                    [ Input.text [ Input.id "state", Input.value "Göteborg", Input.placeholder "What city?" ] ]
+                ]
+            , Form.row []
+                [ Form.colLabel [ Col.sm2 ] [ text "Country : " ]
+                , Form.col [ Col.xs3 ]
+                    [ Input.text [ Input.id "country", Input.value "Sweden", Input.placeholder "What country?" ] ]
+                ]
+            , Form.row [ Row.leftSm ]
+                [ Form.col [ Col.sm2 ]
+                    [ Button.button
+                        [ Button.primary, Button.attrs [ class "float-left" ] ]
+                        [ text "Update Profile" ]
+                    ]
+                ]
             ]
-        ,
-        Form.row []
-            [ Form.colLabel [ Col.sm2 ] [ text "Surname : " ]
+        , Grid.container
+        [ style "position" "absolute"
+        , style "left" "70%"
+        , style "top" "-15%"
+        ]
+        [ h1 [] [ text "Change Password" ] ]
+        , Grid.container[ style "position" "absolute"
+        , style "left" "70%"
+        , style "top" "1px"]
+           [ Form.row []
+            [ Form.colLabel [ Col.sm2 ] [ text "Old password : " ]
             , Form.col [ Col.xs3 ]
-                [ Input.email [] ]
+                [ Input.password [ Input.id "password", Input.value "*******", Input.placeholder "At least 8 char" ] ]
             ]
-        , 
-        Form.row []
-            [ Form.colLabel [ Col.sm2 ] [ text "Alias : " ]
+        , Form.row []
+            [ Form.colLabel [ Col.sm2 ] [ text "New password : " ]
             , Form.col [ Col.xs3 ]
-                [ Input.email [] ]
+                [ Input.password [ Input.id "change password", Input.placeholder "New password" ] ]
             ]
-        , 
-        Form.row []
-            [ Form.colLabel [ Col.sm2 ] [ text "Email : " ]
+        , Form.row []
+            [ Form.colLabel [ Col.sm2 ] [ text "Repeat new password : " ]
             , Form.col [ Col.xs3 ]
-                [ Input.email [] ]
-            ]
-        ,
-        Form.row []
-            [ Form.colLabel [ Col.sm2 ] [ text "Address : " ]
-            , Form.col [ Col.xs3 ]
-                [ Input.email [] ]
-            ]
-        ,   
-        Form.row []
-            [ Form.colLabel [ Col.sm2 ] [ text "Postal : " ]
-            , Form.col [ Col.xs3 ]
-                [ Input.text [ Input.attrs [ placeholder "Zip : " ] ] ]
-            , Form.col [ Col.xs3 ]
-                [ Input.text [ Input.attrs [ placeholder "State : " ] ] ]
-            ]
-        ,
-        Form.row []
-            [ Form.colLabel [ Col.sm2 ] [ text "Country : " ]
-            , Form.col [ Col.xs3 ]
-                [ Input.email [] ]
-            ]
+                [ Input.password [ Input.id "change password", Input.placeholder "Repeat new password" ] ]
+            ]            
         , Form.row [ Row.leftSm ]
             [ Form.col [ Col.sm2 ]
                 [ Button.button
-                    [ Button.primary, Button.attrs [ class "float-left"] ]
-                    [ text "Update Profile" ]
-                ]
+                    [ Button.primary, Button.attrs [ class "float-left" ] ]
+                    [ text "Change password" ]
+                ]]
             ]
         ]
     ]
-    ]
+
 
 
 -- Signin=
+
+
 pageSignin : List (Html Msg)
 pageSignin =
     [ Form.form [ style "position" "absolute", style "left" "41%", style "top" "50%" ]
@@ -545,11 +621,15 @@ pageSignin =
         ]
     ]
 
+
+
 -- Signout=
+
+
 pageSignout : List (Html Msg)
 pageSignout =
-    [ h1 [ style "position" "absolute", style "left" "43%", style "top" "44%" ] 
-    [ text "You have sign out" ]
+    [ h1 [ style "position" "absolute", style "left" "40%", style "top" "45%" ]
+        [ text "You have been sign out" ]
     , div []
         [ img
             [ src "src/assets/images/signin.jpg"
@@ -560,7 +640,11 @@ pageSignout =
         ]
     ]
 
+
+
 --Signup=
+
+
 pageSignup : List (Html Msg)
 pageSignup =
     [ h1 [ style "position" "absolute", style "left" "53%", style "top" "20%" ] [ text "Create Profile" ]
@@ -581,7 +665,7 @@ pageSignup =
                 , style "color" "black"
                 ]
                 [ text "Surname" ]
-            , Input.password [ Input.id "surname", Input.placeholder "Surname" ]
+            , Input.text [ Input.id "surname", Input.placeholder "Surname" ]
             ]
         , Form.group []
             [ Form.label
@@ -590,7 +674,7 @@ pageSignup =
                 , style "color" "black"
                 ]
                 [ text "Address" ]
-            , Input.password [ Input.id "address", Input.placeholder "Address" ]
+            , Input.text [ Input.id "address", Input.placeholder "Address" ]
             ]
         , Form.group []
             [ Form.label
@@ -599,7 +683,7 @@ pageSignup =
                 , style "color" "black"
                 ]
                 [ text "Email" ]
-            , Input.password [ Input.id "email", Input.placeholder "Email" ]
+            , Input.email [ Input.id "email", Input.placeholder "Email" ]
             ]
         , Form.group []
             [ Form.label
@@ -642,7 +726,7 @@ pageAbout =
     [ img
         [ src "src/assets/images/about.jpg"
         , style "width" "100%"
-        , style "height" "750px"
+        , style "height" "850px"
         ]
         []
     , Grid.row []
