@@ -51,14 +51,12 @@ type alias Model =
     }
 
 
-
--- type alias User =
---     {
---       username : String
---     , firstName : String
---     , surname : String
---     , age : Int
---     }
+type alias User =
+    { username : String
+    , firstName : String
+    , surname : String
+    , email : String
+    }
 
 
 type Page
@@ -85,7 +83,9 @@ init flags url key =
     in
     ( model, Cmd.batch [ urlCmd, navCmd ] )
 
--- Msg 
+
+
+-- Msg
 
 
 type Msg
@@ -113,8 +113,13 @@ update msg model =
         ClickedLink req ->
             case req of
                 Browser.Internal url ->
-                    
-                    ( model, if url.fragment == Just "" then Cmd.none else Navigation.pushUrl model.navKey <| Url.toString url )
+                    ( model
+                    , if url.fragment == Just "" then
+                        Cmd.none
+
+                      else
+                        Navigation.pushUrl model.navKey <| Url.toString url
+                    )
 
                 Browser.External href ->
                     ( model, Navigation.load href )
@@ -151,6 +156,7 @@ decode url =
 
 -- Routeparser // Controller
 
+
 routeParser : Parser (Page -> a) a
 routeParser =
     UrlParser.oneOf
@@ -184,7 +190,8 @@ view model =
 
 
 -- Navigation Bar // Links
-            
+
+
 menu : Model -> Html Msg
 menu model =
     Navbar.config NavMsg
@@ -198,7 +205,7 @@ menu model =
             [ img
                 [ src "src/assets/images/museum.svg"
                 , class "d-inline-block align-top"
-                , style "width" "80px"
+                , style "width" "60px"
                 , style "height" "80px"
                 ]
                 []
@@ -215,8 +222,7 @@ menu model =
                 { id = "mydropdown"
                 , toggle =
                     Navbar.dropdownToggle
-                        [ 
-                        style "font-size" "20px"
+                        [ style "font-size" "20px"
                         , style "padding" "12px"
                         ]
                         [ text "Auctions" ]
@@ -446,12 +452,11 @@ pageProfile =
 
 pageSignin : List (Html Msg)
 pageSignin =
-   [ Form.form [ style "position" "absolute", style "left" "42%", style "top" "55%" ]
+    [ Form.form [ style "position" "absolute", style "left" "41%", style "top" "50%" ]
         [ Form.group []
             [ Form.label
                 [ for "username"
                 , style "font-size" "25px"
-                , style "color" "white"
                 ]
                 [ text "Username" ]
             , Input.text [ Input.id "username", Input.placeholder "emailname@domain" ]
@@ -460,7 +465,6 @@ pageSignin =
             [ Form.label
                 [ for "password"
                 , style "font-size" "25px"
-                , style "color" "white"
                 ]
                 [ text "Password" ]
             , Input.password [ Input.id "password", Input.placeholder "minimum 8 tecken" ]
@@ -480,17 +484,23 @@ pageSignin =
 
 pageSignout : List (Html Msg)
 pageSignout =
-    [ h1 [] [ text "signout" ]
-    , p [] [ text "Todo: Signout" ]
+    [ h1 [ style "position" "absolute", style "left" "43%", style "top" "44%" ] 
+    [ text "You have sign out" ]
+    , div []
+        [ img
+            [ src "src/assets/images/signin.jpg"
+            , style "width" "100%"
+            , style "height" "750px"
+            ]
+            []
+        ]
     ]
 
 
 pageSignup : List (Html Msg)
 pageSignup =
-    [h1 [ style "position" "absolute", style "left" "53%", style "top" "20%"] [ text "Create Profile" ]
-    ,
-        Form.form [ style "position" "absolute", style "left" "53%", style "top" "30%" ]
-       
+    [ h1 [ style "position" "absolute", style "left" "53%", style "top" "20%" ] [ text "Create Profile" ]
+    , Form.form [ style "position" "absolute", style "left" "53%", style "top" "30%" ]
         [ Form.group []
             [ Form.label
                 [ for "username"
@@ -599,9 +609,11 @@ pageNotFound =
 
 -- Style functions
 
+
 myNavbarBorderStyle : List (Attribute Msg)
 myNavbarBorderStyle =
-            [ style "height" "90px"
-            , style "padding" "15px"
-            , style "border-bottom-style" "solid"
-            , style "border-bottom-color" "grey"]
+    [ style "height" "80px"
+    , style "padding" "15px"
+    , style "border-bottom-style" "solid"
+    , style "border-bottom-color" "grey"
+    ]
