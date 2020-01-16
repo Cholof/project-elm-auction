@@ -221,8 +221,8 @@ menu model =
             [ img
                 [ src "src/assets/images/museum.svg"
                 , class "d-inline-block align-top"
-                , style "width" "60px"
-                , style "height" "80px"
+                , style "width" "50px"
+                , style "height" "60px"
                 ]
                 []
             ]
@@ -468,7 +468,7 @@ pageExpired =
 
 pageProfile : List (Html Msg)
 pageProfile =
-    [ Card.config [ Card.attrs [ style "width" "20rem", style "height" "800px " ] ]
+    [ Card.config [ Card.attrs [ style "width" "20rem", style "height" "1000px " ] ]
         |> Card.header [ class "text-center" ]
             [ img [ src "./src/assets/images/profile.png", style "width" "15rem" ] []
             , h3 [ Spacing.mt2 ] [ text "Profile" ]
@@ -507,13 +507,13 @@ pageProfile =
         |> Card.view
     , Grid.container
         [ style "position" "absolute"
-        , style "left" "20%"
+        , style "left" "25%"
         , style "top" "15%"
         ]
         [ h1 [] [ text "My profile" ] ]
     , Grid.container
         [ style "position" "absolute"
-        , style "left" "20%"
+        , style "left" "25%"
         , style "top" "25%"
         ]
         [ Form.form []
@@ -567,18 +567,10 @@ pageProfile =
                     ]
                 ]
             ]
-        , Grid.container
-            [ style "position" "absolute"
-            , style "left" "70%"
-            , style "top" "-15%"
-            ]
-            [ h1 [] [ text "Change Password" ] ]
-        , Grid.container
-            [ style "position" "absolute"
-            , style "left" "70%"
-            , style "top" "1px"
-            ]
-            [ Form.row []
+        , 
+           h1 [] [ text "Change Password" ] 
+        , 
+             Form.row []
                 [ Form.colLabel [ Col.sm2 ] [ text "Old password : " ]
                 , Form.col [ Col.xs3 ]
                     [ Input.password [ Input.id "password", Input.value "*******", Input.placeholder "At least 8 char" ] ]
@@ -600,7 +592,7 @@ pageProfile =
                         [ text "Change password" ]
                     ]
                 ]
-            ]
+            
         ]
     ]
 
@@ -611,7 +603,7 @@ pageProfile =
 
 pageSignin : List (Html Msg)
 pageSignin =
-    [ Form.form [ style "position" "absolute", style "left" "41%", style "top" "50%" ]
+    [ Form.form [ style "position" "absolute", style "left" "41%", style "top" "60%" ]
         [ Form.group []
             [ Form.label
                 [ for "username"
@@ -779,7 +771,7 @@ pageNotFound =
 
 myNavbarBorderStyle : List (Attribute Msg)
 myNavbarBorderStyle =
-    [ style "height" "80px"
+    [ style "height" "70px"
     , style "padding" "15px"
     , style "border-bottom-style" "solid"
     , style "border-bottom-color" "grey"
