@@ -76,14 +76,15 @@ type alias Item =
     { name : String
     , description : String
     , image : String
+    , startPrice : Int
     }
 
 
 items : List Item
 items =
-    [ { name = "Gustaviansk spegel", description = "55 x 90 cm", image = "src/assets/images/gustmirror.jpg" }
-    , { name = "Tete-a-tete stolar", description = "Från 1900-talet", image = "src/assets/images/armchair.png" }
-    , { name = "Gammaldags Oljelampa", description = "Gammaldags från 1800 talet", image = "src/assets/images/oillamp.jpg" }
+    [ { name = "Gustaviansk spegel", description = "55 x 90 cm", image = "src/assets/images/gustmirror.jpg", startPrice = 4999 }
+    , { name = "Tete-a-tete stolar", description = "Från 1900-talet", image = "src/assets/images/armchair.png", startPrice = 100000 }
+    , { name = "Gammaldags Oljelampa", description = "Gammaldags från 1800 talet", image = "src/assets/images/oillamp.jpg", startPrice = 999 }
     ]
 
 
@@ -374,11 +375,15 @@ produceColumn item =
                 [ img [ src item.image, style "height" "10rem" ] [] ]
             |> Card.block []
                 [ Block.text [ class "text-center" ]
-                    [ text item.name ]
+                    [ text ("Name: " ++ item.name) ]
                 ]
             |> Card.block []
                 [ Block.text [ class "text-center" ]
-                    [ text item.description ]
+                    [ text ("Description: " ++ item.description) ]
+                ]
+            |> Card.block []
+                [ Block.text [ class "text-center" ]
+                    [ text ("Start price: " ++ String.fromInt item.startPrice ++ " SEK") ]
                 ]
             |> Card.view
         ]
