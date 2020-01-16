@@ -37,7 +37,7 @@ main =
 
 
 
--- Types
+-- Model=
 
 
 type alias Flags =
@@ -85,7 +85,7 @@ init flags url key =
 
 
 
--- Msg
+-- Msg=
 
 
 type Msg
@@ -95,7 +95,7 @@ type Msg
 
 
 
--- Subscriptions
+-- Subscriptions=
 
 
 subscriptions : Model -> Sub Msg
@@ -104,7 +104,7 @@ subscriptions model =
 
 
 
--- Update
+-- Update=
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -154,7 +154,7 @@ decode url =
 
 
 
--- Routeparser // Controller
+-- Route=
 
 
 routeParser : Parser (Page -> a) a
@@ -173,7 +173,7 @@ routeParser =
 
 
 
--- View
+-- View=
 
 
 view : Model -> Browser.Document Msg
@@ -189,7 +189,7 @@ view model =
 
 
 
--- Navigation Bar // Links
+-- Navbar=
 
 
 menu : Model -> Html Msg
@@ -201,7 +201,7 @@ menu model =
         |> Navbar.light
         |> Navbar.attrs
             myNavbarBorderStyle
-        |> Navbar.brand [ href "#" ]
+        |> Navbar.brand [ href "/" ]
             [ img
                 [ src "src/assets/images/museum.svg"
                 , class "d-inline-block align-top"
@@ -212,7 +212,7 @@ menu model =
             ]
         |> Navbar.items
             [ Navbar.itemLinkActive
-                [ href "#"
+                [ href "/"
                 , style "padding" "12px"
                 , style "color" "OrangeRed"
                 , style "font-size" "20px"
@@ -325,7 +325,7 @@ mainContent model =
 
 
 
--- Homepage
+-- Home=
 
 
 pageHome : List (Html Msg)
@@ -351,11 +351,6 @@ pageHome =
 
 
 
--- Auctions Page
--- 1. add list of Items
--- 2. Move InputGroup and Button distinct item
-
-
 produceColumn : Grid.Column msg
 produceColumn =
     Grid.col
@@ -374,7 +369,7 @@ produceColumn =
             |> Card.view
         ]
 
-
+-- Auctions=
 pageAuctions : List (Html Msg)
 pageAuctions =
     [ h1 [ class "text-center" ] [ text "Auctions" ]
@@ -388,7 +383,7 @@ pageAuctions =
         ]
     ]
 
-
+-- Additem=
 pageAddItem : List (Html Msg)
 pageAddItem =
     [ h1 [ class "text-center" ] [ text "Add Item / Sell" ]
@@ -413,7 +408,7 @@ pageAddItem =
         ]
     ]
 
-
+-- Expired=
 pageExpired : List (Html Msg)
 pageExpired =
     [ h1 [ class "text-center" ] [ text "Expired Item" ]
@@ -440,16 +435,85 @@ pageExpired =
 
 
 
--- User Page
-
+-- Profile= 
 
 pageProfile : List (Html Msg)
 pageProfile =
-    [ h1 [] [ text "Profile" ]
-    , p [] [ text "Todo: Render Type - User" ]
+        
+    [ Card.config [ Card.attrs [ style  "width" "20rem" , style "left" "15%" ] ]
+        
+          |> Card.header [ class "text-center" ]
+        [ img [ src "./src/assets/images/profile.png", style "width" "10rem" ] []
+        , h3 [ Spacing.mt2 ] [ text "Profile" ]
+        ]
+          |> Card.block []
+        [ Block.titleH4 [] [ text "Menu" ]
+        , Block.custom <|
+            Button.linkButton [ Button.primary ] [text "My Profile" ]
+        , Block.custom <|
+            Button.linkButton [ Button.primary ] [ text "Your items" ]
+        , Block.custom <|
+            Button.linkButton [ Button.primary ] [ text "Go somewhere" ]
+        ]
+    |> Card.view
+    , Grid.container [style "position" "absolute", style "left" "35%", style "top" "30%" ]
+    [ Form.form []
+        [ Form.row []
+            [ Form.colLabel [ Col.sm2 ] [ text "Name : " ]
+            , Form.col [ Col.xs3 ]
+                [ Input.email [] ]
+            ]
+        ,
+        Form.row []
+            [ Form.colLabel [ Col.sm2 ] [ text "Surname : " ]
+            , Form.col [ Col.xs3 ]
+                [ Input.email [] ]
+            ]
+        , 
+        Form.row []
+            [ Form.colLabel [ Col.sm2 ] [ text "Alias : " ]
+            , Form.col [ Col.xs3 ]
+                [ Input.email [] ]
+            ]
+        , 
+        Form.row []
+            [ Form.colLabel [ Col.sm2 ] [ text "Email : " ]
+            , Form.col [ Col.xs3 ]
+                [ Input.email [] ]
+            ]
+        ,
+        Form.row []
+            [ Form.colLabel [ Col.sm2 ] [ text "Address : " ]
+            , Form.col [ Col.xs3 ]
+                [ Input.email [] ]
+            ]
+        ,   
+        Form.row []
+            [ Form.colLabel [ Col.sm2 ] [ text "Postal : " ]
+            , Form.col [ Col.xs3 ]
+                [ Input.text [ Input.attrs [ placeholder "Zip : " ] ] ]
+            , Form.col [ Col.xs3 ]
+                [ Input.text [ Input.attrs [ placeholder "State : " ] ] ]
+            ]
+        ,
+        Form.row []
+            [ Form.colLabel [ Col.sm2 ] [ text "Country : " ]
+            , Form.col [ Col.xs3 ]
+                [ Input.email [] ]
+            ]
+        , Form.row [ Row.leftSm ]
+            [ Form.col [ Col.sm2 ]
+                [ Button.button
+                    [ Button.primary, Button.attrs [ class "float-left"] ]
+                    [ text "Update Profile" ]
+                ]
+            ]
+        ]
+    ]
     ]
 
 
+-- Signin=
 pageSignin : List (Html Msg)
 pageSignin =
     [ Form.form [ style "position" "absolute", style "left" "41%", style "top" "50%" ]
@@ -481,7 +545,7 @@ pageSignin =
         ]
     ]
 
-
+-- Signout=
 pageSignout : List (Html Msg)
 pageSignout =
     [ h1 [ style "position" "absolute", style "left" "43%", style "top" "44%" ] 
@@ -496,7 +560,7 @@ pageSignout =
         ]
     ]
 
-
+--Signup=
 pageSignup : List (Html Msg)
 pageSignup =
     [ h1 [ style "position" "absolute", style "left" "53%", style "top" "20%" ] [ text "Create Profile" ]
@@ -570,7 +634,7 @@ pageSignup =
 
 
 
--- About Page
+-- About=
 
 
 pageAbout : List (Html Msg)
