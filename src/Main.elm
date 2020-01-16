@@ -85,6 +85,7 @@ items =
     [ { name = "Gustaviansk spegel", description = "55 x 90 cm", image = "src/assets/images/gustmirror.jpg", startPrice = 4999 }
     , { name = "Tete-a-tete stolar", description = "Från 1900-talet", image = "src/assets/images/armchair.png", startPrice = 100000 }
     , { name = "Gammaldags Oljelampa", description = "Gammaldags från 1800 talet", image = "src/assets/images/oillamp.jpg", startPrice = 999 }
+    , { name = "Piedestal", description = "40cm diameter, 70cm höjd", image = "src/assets/images/piedestal.png", startPrice = 5000 }
     ]
 
 
@@ -567,32 +568,29 @@ pageProfile =
                     ]
                 ]
             ]
-        , 
-           h1 [] [ text "Change Password" ] 
-        , 
-             Form.row []
-                [ Form.colLabel [ Col.sm2 ] [ text "Old password : " ]
-                , Form.col [ Col.xs3 ]
-                    [ Input.password [ Input.id "password", Input.value "*******", Input.placeholder "At least 8 char" ] ]
+        , h1 [] [ text "Change Password" ]
+        , Form.row []
+            [ Form.colLabel [ Col.sm2 ] [ text "Old password : " ]
+            , Form.col [ Col.xs3 ]
+                [ Input.password [ Input.id "password", Input.value "*******", Input.placeholder "At least 8 char" ] ]
+            ]
+        , Form.row []
+            [ Form.colLabel [ Col.sm2 ] [ text "New password : " ]
+            , Form.col [ Col.xs3 ]
+                [ Input.password [ Input.id "change password", Input.placeholder "New password" ] ]
+            ]
+        , Form.row []
+            [ Form.colLabel [ Col.sm2 ] [ text "Repeat new password : " ]
+            , Form.col [ Col.xs3 ]
+                [ Input.password [ Input.id "change password", Input.placeholder "Repeat new password" ] ]
+            ]
+        , Form.row [ Row.leftSm ]
+            [ Form.col [ Col.sm2 ]
+                [ Button.button
+                    [ Button.primary, Button.attrs [ class "float-left" ] ]
+                    [ text "Change password" ]
                 ]
-            , Form.row []
-                [ Form.colLabel [ Col.sm2 ] [ text "New password : " ]
-                , Form.col [ Col.xs3 ]
-                    [ Input.password [ Input.id "change password", Input.placeholder "New password" ] ]
-                ]
-            , Form.row []
-                [ Form.colLabel [ Col.sm2 ] [ text "Repeat new password : " ]
-                , Form.col [ Col.xs3 ]
-                    [ Input.password [ Input.id "change password", Input.placeholder "Repeat new password" ] ]
-                ]
-            , Form.row [ Row.leftSm ]
-                [ Form.col [ Col.sm2 ]
-                    [ Button.button
-                        [ Button.primary, Button.attrs [ class "float-left" ] ]
-                        [ text "Change password" ]
-                    ]
-                ]
-            
+            ]
         ]
     ]
 
