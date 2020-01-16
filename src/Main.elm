@@ -396,7 +396,7 @@ produceColumn item =
 pageAuctions : List (Html Msg)
 pageAuctions =
     [ h1 [ class "text-center" ] [ text "Auctions" ]
-    , Grid.container []
+    , Grid.containerFluid []
         [ Grid.row
             [ Row.topXs ]
             (List.map produceColumn items)
@@ -411,7 +411,7 @@ pageAuctions =
 pageAddItem : List (Html Msg)
 pageAddItem =
     [ h1 [ class "text-center" ] [ text "Add Item / Sell" ]
-    , Grid.container []
+    , Grid.containerFluid []
         [ Grid.row
             [ Row.topXs ]
             [ Grid.col
@@ -508,12 +508,14 @@ pageProfile =
     , Grid.container
         [ style "position" "absolute"
         , style "left" "25%"
+        , style "width" "75%"
         , style "top" "15%"
         ]
         [ h1 [] [ text "My profile" ] ]
     , Grid.container
         [ style "position" "absolute"
         , style "left" "25%"
+        , style "width" "75%"
         , style "top" "25%"
         ]
         [ Form.form []
@@ -639,8 +641,8 @@ pageSignin =
 
 pageSignout : List (Html Msg)
 pageSignout =
-    [ h1 [ style "position" "absolute", style "left" "40%", style "top" "45%" ]
-        [ text "You have been sign out" ]
+    [ h1 [ style "position" "absolute", style "left" "41%", style "top" "55%" ]
+        [ text "Sign out" ]
     , div []
         [ img
             [ src "src/assets/images/signin.jpg"
